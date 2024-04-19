@@ -7,7 +7,8 @@ For example:
 <summary>
   <strong>Minecraft</strong>
 </summary>
-+ <a href="https://buoya42.github.io/1.2.6.html">1.2.6</a>
+  COMING SOON!
+<!-- + <a href="https://buoya42.github.io/1.2.6.html">1.2.6</a>
 </br>
 + <a href="https://buoya42.github.io/1.3.html">1.3</a>
 </br>
@@ -15,7 +16,7 @@ For example:
 </br>
 + <a href="https://buoya42.github.io/1.8.html">1.8</a>
 </br>
-+ <a href="https://buoya42.github.io/1.8%20international.html">1.8 International</a>
++ <a href="https://buoya42.github.io/1.8%20international.html">1.8 International</a> -->
 </details>
 
 

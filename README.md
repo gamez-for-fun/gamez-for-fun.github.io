@@ -19,5 +19,5 @@ For example:
 </details>
 
 
-##### Have you got any issue? [Send us your feedback](https://github.com/buoya42/buoya42.github.io/issues)
+<h5>Have you got any issue? <a href="https://github.com/buoya42/buoya42.github.io/issues">Send us your feedback</a> | <a href="javascript:bookmarkSite('buoya42', window.location)">Bookmark us!</a></h5>
   <!-- COMING SOON! -->

@@ -7,15 +7,15 @@ For example:
 <summary>
   <strong>Minecraft</strong>
 </summary>
-+ <a href="https://buoya42.github.io/1.2.6.html">1.2.6</a>
++ <a href="https://buoya42.github.io/minecraft/1.2.6/index.html">1.2.6</a>
 </br>
-+ <a href="https://buoya42.github.io/1.3.html">1.3</a>
++ <a href="https://buoya42.github.io/minecraft/1.3/index.html">1.3</a>
 </br>
-+ <a href="https://buoya42.github.io/1.5.2.html">1.5.2</a>
++ <a href="https://buoya42.github.io/minecraft/1.5.2.html">1.5.2</a>
 </br>
-+ <a href="https://buoya42.github.io/1.8.html">1.8</a>
++ <a href="https://buoya42.github.io/minecraft/1.8/index.html">1.8</a>
 </br>
-+ <a href="https://buoya42.github.io/1.8%20international.html">1.8 International</a>
++ <a href="https://buoya42.github.io/minecraft/1.8%20international/index.html">1.8 International</a>
 </details>
 
 

@@ -1,6 +1,6 @@
 defaults:
   - scope:
-      path: ""
+      path: "404/"
       type: "404"
     values:
       layout: "default"

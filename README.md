@@ -19,5 +19,5 @@ For example:
 </details>
 
 
-<h5>Have you got any issue? <a href="https://github.com/buoya42/buoya42.github.io/issues">Send us your feedback</a></h5>
+<h5>Have you got any issue? <a href="https://github.com/buoya42/buoya42.github.io/issues/new">Send us your feedback</a></h5>
   <!-- COMING SOON! -->

@@ -17,7 +17,6 @@ For example:
 </br>
 + <a href="https://buoya42.github.io/minecraft/1.8%20international/">1.8 International</a>
 </details>
-</br>
 <details>
 <summary>
   <strong>Browser Hidden Games</strong>

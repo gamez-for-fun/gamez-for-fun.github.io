@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Minecraft 1.8.8 (EaglercraftX), in a web browser" />
+	<meta name="keywords" content="eaglercraft, eaglercraftx, minecraft, 1.8, 1.8.8" />
+	<title>My Drive - Google Drive</title>
+	<meta property="og:locale" content="en-US" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Minecraft 1.8.8" />
+	<meta property="og:description"
+		content="An online version of EaglercraftX. Play Minecraft 1.8.8 on a Chromebook!" />
+	<link type="image/ico" rel="shortcut icon" href="https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png" />
+	<!-- q13x's caching EaglercraftX loader, made with lots of love. <3 -->
+	<script type="text/javascript" src="/largeEPK.js"></script>
+	<script type="text/javascript" src="/sha256.js"></script>
+	<script type="text/javascript">
+		"use strict";
+		window.addEventListener("load", async () => {
+			if (document.location.href.startsWith("file:")) {
+				alert("HTTP please, do not open this file locally, run a local HTTP server and load it via HTTP");
+			} else {
+				const LEPK_ASSETS = "game-assets/meta.json";
+				const LEPK_JS = "javascript/meta.json";
+				let assetsURI = null;
+				let downloadedJavascript = null;
+
+				const dbName = 'cache';
+				const dbVersion = 1;
+
+				async function setDBAsset(name, value) {
+					const db = await openDatabase();
+					const transaction = db.transaction('cache', 'readwrite');
+					const objectStore = transaction.objectStore('cache');
+					objectStore.put(value, name);
+					transaction.oncomplete = () => {
+						db.close();
+					};
+				}
+
+				async function getDBAsset(name) {
+					const db = await openDatabase();
+					const transaction = db.transaction('cache', 'readonly');
+					const objectStore = transaction.objectStore('cache');
+					const getRequest = objectStore.get(name);
+					return new Promise((resolve, reject) => {
+						getRequest.onsuccess = event => {
+							resolve(event.target.result);
+						};
+						getRequest.onerror = event => {
+							reject(event.target.error);
+						};
+					}).finally(() => {
+						db.close();
+					});
+				}
+
+				async function openDatabase() {
+					return new Promise((resolve, reject) => {
+						const request = indexedDB.open(dbName, dbVersion);
+						request.onerror = () => {
+							reject(request.error);
+						};
+						request.onupgradeneeded = event => {
+							const db = event.target.result;
+							db.createObjectStore('cache');
+						};
+						request.onsuccess = event => {
+							const db = event.target.result;
+							resolve(db);
+						};
+					});
+				}
+
+				function isOnline() {
+					return navigator != null ? navigator.onLine : true;
+				}
+
+				if ('serviceWorker' in navigator) {
+					navigator.serviceWorker.register('/sw.js')
+						.then((registration) => {
+							console.log(`[bootstrap] Service worker registered under scope (${registration.scope})! Offline support enabled.`);
+						})
+						.catch((error) => {
+							console.error("[bootstrap] Your browser/website configuration does not support service workers, :(. Offline support will not work.")
+							console.error("[bootstrap] Possible fixes: update/change browser, or properly configure your HTTPS setup (if you are the website operator).")
+							console.error(error.stack);
+						});
+				} else {
+					console.error("[bootstrap] Your browser/website configuration does not support service workers, :(. Offline support will not work.")
+					console.error("[bootstrap] Possible fixes: update/change browser, or properly configure your HTTPS setup (if you are the website operator).")
+				}
+
+				const loadingScreen = document.getElementById("loading-div");
+				const loadingScreenText = document.getElementById("action-block");
+				const loadingScreenContextText = document.getElementById("context-block");
+				const loadingScreenProgress = document.getElementById("progress-bar");
+				const loadingScreenProgressContainer = document.getElementById("progress-bar-container");
+
+				try {
+					const cacheFetch = await getDBAsset("epk");
+					if (cacheFetch != null) {
+						console.info(`[bootstrap] Loaded cached assets.epk: <${cacheFetch.byteLength} bytes>`);
+						let hash = await getDBAsset("epk-hash"),
+							fetchedMetadata = await new EPKLib.LargeEPK(LEPK_ASSETS, "URL").fetchMetadata();
+
+						if (hash == null) {
+							console.warn(`[bootstrap] Cache is missing assets.epk hash, recalculating and saving...`)
+							hash = new jsSHA("SHA-256", "ARRAYBUFFER").update(cacheFetch).getHash("HEX")
+							await setDBAsset("epk-hash", hash)
+						}
+
+						if (fetchedMetadata.hash === hash) {
+							console.info("[bootstrap] Cache has matching assets.epk SHA256 hash, hash: " + hash);
+							console.info("[bootstrap] Finished loading assets, downloading JavaScript...");
+							assetsURI = URL.createObjectURL(new Blob([cacheFetch], { type: 'application/octet-stream' }));
+						} else {
+							console.warn(`[bootstrap] Mismatching asset.epk hashes detected! Cache hash: ${hash}, metadata hash: ${fetchedMetadata.hash}.`);
+							console.warn(`[bootstrap] This isn't necessarily bad - the server's assets.epk might've updated. Proceeding to redownload assets.epk...`);
+							console.info("[bootstrap] Redownloading assets.epk...");
+							loadingScreenText.textContent = "Updating assets...";
+							loadingScreenProgressContainer.hidden = false;
+
+							if (!isOnline()) {
+								alert("Your game files are out of date, but you are offline. Please go online to update your game files.")
+								return;
+							}
+
+							const progress = fetchedMetadata.fetch();
+
+							progress.progressCallback.addEventListener("progress", event => {
+								loadingScreenText.textContent = `Updating assets... (${event.overallPercent.toFixed(2)}%)`
+								loadingScreenProgress.style.width = event.overallPercent + "%";
+							});
+							await progress.promise;
+
+							const rawAssets = fetchedMetadata.getComplete();
+							await setDBAsset("epk", rawAssets);
+							await setDBAsset("epk-hash", fetchedMetadata.hash)
+
+							console.info("[bootstrap] Downloaded assets.epk, downloading JavaScript...");
+							assetsURI = URL.createObjectURL(new Blob([rawAssets], { type: 'application/octet-stream' }));
+						}
+					} else {
+						console.warn("[bootstrap] Could not find cached assets.epk - downloading...");
+						loadingScreenText.textContent = "Downloading assets...";
+						loadingScreenProgressContainer.hidden = false;
+						const lepk = await new EPKLib.LargeEPK(LEPK_ASSETS, "URL").fetchMetadata()
+
+						if (!isOnline()) {
+							alert("Your game files are out of date, but you are offline. Please go online to update your game files.")
+							return;
+						}
+
+						const progress = lepk.fetch()
+
+						progress.progressCallback.addEventListener("progress", event => {
+							loadingScreenText.textContent = `Downloading assets... (${event.overallPercent.toFixed(2)}%)`
+							loadingScreenProgress.style.width = event.overallPercent + "%";
+						});
+
+						await progress.promise;
+
+						const rawAssets = lepk.getComplete();
+						assetsURI = URL.createObjectURL(new Blob([rawAssets], { type: 'application/octet-stream' }));
+						await setDBAsset("epk", rawAssets);
+						await setDBAsset("epk-hash", lepk.hash)
+					}
+
+					function Utf8ArrayToStr(array) {
+						var out, i, len, c;
+						var char2, char3;
+
+						out = "";
+						len = array.length;
+						i = 0;
+						while (i < len) {
+							c = array[i++];
+							switch (c >> 4) {
+								case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7:
+									// 0xxxxxxx
+									out += String.fromCharCode(c);
+									break;
+								case 12: case 13:
+									// 110x xxxx   10xx xxxx
+									char2 = array[i++];
+									out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
+									break;
+								case 14:
+									// 1110 xxxx  10xx xxxx  10xx xxxx
+									char2 = array[i++];
+									char3 = array[i++];
+									out += String.fromCharCode(((c & 0x0F) << 12) |
+										((char2 & 0x3F) << 6) |
+										((char3 & 0x3F) << 0));
+									break;
+							}
+						}
+
+						return out;
+					}
+
+					const cacheFetchJS = await getDBAsset("js");
+					if (cacheFetchJS != null) {
+						console.info(`[bootstrap] Loaded cached JavaScript: <${cacheFetchJS.byteLength} bytes>`);
+						let hash = await getDBAsset("js-hash"),
+							fetchedMetadata = await new EPKLib.LargeEPK(LEPK_JS, "URL").fetchMetadata();
+
+						if (hash == null) {
+							console.warn("[bootstrap] Cache is missing classes.js hash, recalculating and saving...")
+							hash = new jsSHA("SHA-256", "ARRAYBUFFER").update(cacheFetchJS).getHash("HEX")
+							await setDBAsset("js-hash", hash)
+						}
+
+						if (fetchedMetadata.hash === hash) {
+							console.info("[bootstrap] Cache has matching classes.js SHA256 hash, hash: " + hash);
+							console.info("[bootstrap] Finished loading JavaScript, starting game...");
+							downloadedJavascript = Utf8ArrayToStr(cacheFetchJS);
+							loadingScreenText.textContent = "Starting game...";
+						} else {
+							console.warn(`[bootstrap] Mismatching classes.js hashes detected! Cache hash: ${hash}, metadata hash: ${fetchedMetadata.hash}.`);
+							console.warn(`[bootstrap] This isn't necessarily bad - the server's classes.js might've updated. Proceeding to redownload classes.js...`);
+							console.info("[bootstrap] Redownloading classes.js...");
+							loadingScreenText.textContent = "Updating code...";
+							loadingScreenProgressContainer.hidden = false;
+
+							if (!isOnline()) {
+								alert("Your game files are out of date, but you are offline. Please go online to update your game files.")
+								return;
+							}
+
+							const progress = fetchedMetadata.fetch();
+
+							progress.progressCallback.addEventListener("progress", event => {
+								loadingScreenText.textContent = `Updating code... (${event.overallPercent.toFixed(2)}%)`
+								loadingScreenProgress.style.width = event.overallPercent + "%";
+							});
+							await progress.promise;
+
+							const rawAssets = fetchedMetadata.getComplete();
+							downloadedJavascript = Utf8ArrayToStr(rawAssets);
+							await setDBAsset("js", rawAssets);
+							await setDBAsset("js-hash", fetchedMetadata.hash);
+
+							console.info("[bootstrap] Downloaded classes.js, launching...");
+							loadingScreenText.textContent = "Launching game...";
+							loadingScreenProgressContainer.remove();
+						}
+					} else {
+						console.warn("[bootstrap] Could not find cached classes.js - downloading...");
+						loadingScreenText.textContent = "Downloading code...";
+						loadingScreenProgressContainer.hidden = false;
+						const lepk = await new EPKLib.LargeEPK(LEPK_JS, "URL").fetchMetadata()
+
+						if (!isOnline()) {
+							alert("Your game files are out of date, but you are offline. Please go online to update your game files.")
+							return;
+						}
+
+						const progress = lepk.fetch()
+
+						progress.progressCallback.addEventListener("progress", event => {
+							loadingScreenText.textContent = `Downloading code... (${event.overallPercent.toFixed(2)}%)`
+							loadingScreenProgress.style.width = event.overallPercent + "%";
+						});
+
+						await progress.promise;
+
+						const rawAssets = lepk.getComplete();
+						downloadedJavascript = Utf8ArrayToStr(rawAssets);
+						await setDBAsset("js", rawAssets);
+						await setDBAsset("js-hash", lepk.hash);
+					}
+
+					loadingScreenText.textContent = "Launching game...";
+					loadingScreenProgressContainer.remove();
+				} catch (err) {
+					alert(`Something went wrong! If this keeps happening, try resetting your cookies and other site data on your browser. Procedure may vary between browsers.\n-----\n${err.stack}`)
+					console.error(`[bootstrap] Could not load cached assets!\n${err.stack}`)
+					return;
+				}
+
+				function setViewportScale(scale) {
+					if (scale <= 0) {
+						throw new Error('Scale value must be greater than 0!');
+					}
+
+					window.devicePixelRatio = scale;
+					var viewportMeta = document.querySelector('meta[name="viewport"]');
+					if (viewportMeta) {
+						viewportMeta.content = 'width=device-width, initial-scale=' + scale + ', maximum-scale=' + scale + ', user-scalable=0';
+					} else {
+						console.error('Viewport meta tag not found.');
+					}
+				}
+
+
+				const relayId = Math.floor(Math.random() * 4);
+				window.eaglercraftXOpts = {
+					demoMode: false,
+					container: "game_frame",
+					assetsURI,
+					localesURI: "lang/",
+					worldsDB: "worlds",
+					servers: [
+						{ addr: "wss://reading-gs.q13x.com", name: "q13x's Anarchy Server" },
+						{ addr: "wss://reading-ps.q13x.com", name: "q13x's Vanilla Proxy Server" },
+						{ addr: "wss://mc.arch.lol", name: "ArchMC" }
+            { addr: "wss://mc.asspixel.net", name: "A*sPixel" },
+						{ addr: "wss://mc.arch.lol/", name: "ArchMC" },
+						{ addr: "wss://sus.shhnowisnottheti.me", name: "Ayunboom" },
+						{ addr: "wss://aeon-network.net/1.8", name: "Aeon" },
+						{ addr: "wss://beta.vanillacraftsmp.org/", name: "VanillaCraft" },
+						{ addr: "wss://mc.sealcentral.co", name: "SealCraft" },
+						{ addr: "wss://g.deev.is/eaglerx-reference", name: "Reference Implementation" }
+						/* example: { addr: "ws://localhost:8081/", name: "Local test server" } */
+					],
+					relays: [
+						{ addr: "wss://relay.deev.is/", comment: "lax1dude relay #1", primary: relayId == 0 },
+						{ addr: "wss://relay.lax1dude.net/", comment: "lax1dude relay #2", primary: relayId == 1 },
+						{ addr: "wss://relay.shhnowisnottheti.me/", comment: "ayunami relay #1", primary: relayId == 2 },
+						{ addr: "wss://reading-relay.q13x.com/", comment: "q13x's eaglercraft relay", primary: relayId == 3 }
+					]
+				};
+
+				var q = window.location.search;
+				if (typeof q === "string" && q.startsWith("?")) {
+					q = new URLSearchParams(q);
+					var s = q.get("server"), d = q.get("demo"), scale = q.get("scale"), retina = q.get("retina");
+					if (s) window.eaglercraftXOpts.joinServer = s;
+					if (d && d.toLowerCase() == "true") window.eaglercraftXOpts.demoMode = true;
+					if (retina != null && retina.toLowerCase() == "true") {
+						setViewportScale(Math.min(1.0, window.devicePixelRatio));
+					}
+					if (scale != null) {
+						scale = parseFloat(scale);
+						if (!isNaN(scale)) setViewportScale(scale);
+						else {
+							alert("Invalid scale value: " + scale);
+							throw new Error("Invalid scale value: " + scale);
+						}
+					}
+				}
+
+				requestAnimationFrame(() => {
+					try {
+						const jsElement = document.createElement("script");
+						jsElement.type = 'text/javascript';
+						jsElement.innerHTML = downloadedJavascript;
+						document.head.appendChild(jsElement);
+						window.eaglercraftXClientScriptElement = jsElement;
+					} catch (err) {
+						console.error("[bootstrap] Uncaught error/exception was thrown by game!");
+						console.error(err.stack ?? err);
+						alert("**** UNCAUGHT ERROR CAUGHT!\n" + (err.stack ?? err));
+					}
+					loadingScreen.remove();
+					main();
+				});
+			}
+		});
+	</script>
+</head>
+<style id="bodyStyle">
+	body {
+		margin: 0;
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+	}
+</style>
+
+<body id="game_frame">
+	<div style="margin:0px;width:100%;height:100%;font-family:sans-serif;display:flex;align-items:center;user-select:none;"
+		id="loading-div">
+		<div style="margin:auto;text-align:center;">
+			<h2 id="action-block">Checking for updates...</h2>
+			<h2 id="context-block">(this may take a while)</h2>
+			<div style="border:2px solid black;width:100%;height:15px;padding:1px;margin-bottom:20vh;font-family: Arial, sans-serif;font-weight: bold;"
+				hidden="" id="progress-bar-container">
+				<div id="progress-bar" style="background-color:#ff4545;width:0%;height:100%;top:0;"></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -12,8 +12,8 @@ For example:
 + <a href="https://buoya42.github.io/minecraft/1.3/">1.3</a>
 </br>
 + <a href="https://buoya42.github.io/minecraft/1.5.2.html">1.5.2</a>
-</br>
-+ <a href="https://buoya42.github.io/minecraft/1.8%20all/">1.8 (singleplayer and multiplayer)</a>
+<!-- </br>
++ <a href="https://buoya42.github.io/minecraft/1.8%20all/">1.8 (singleplayer and multiplayer)</a> -->
 </br>
 + <a href="https://buoya42.github.io/minecraft/1.8/">1.8 (multiplayer only)</a>
 </br>

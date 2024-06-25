@@ -42,7 +42,9 @@
         }
 
         .gif {
-            animation: playOnce 5s steps(10) forwards;
+            width: auto;
+            height: auto;
+            animation: playOnce 1s steps(10) forwards; /* Adjust steps(10) according to the number of frames in your GIF */
         }
 
         @keyframes playOnce {
@@ -74,7 +76,9 @@
             var gif = document.querySelector('.gif');
             var gifSrc = gif.src;
             gif.src = '';
-            gif.src = gifSrc;
+            setTimeout(function() {
+                gif.src = gifSrc;
+            }, 0);
         });
     </script>
 </head>
@@ -83,10 +87,9 @@
         <img src="elprimo.gif" class="gif" alt="El Primo GIF" />
     </div>
     <p>You will be redirected in 10 seconds...</p>
-    <button onclick="window.location.href='brawlstars://addfriend?tag=RU8U8JL8J'">Redirect Now</button>
     <p>Or click <a href="brawlstars://addfriend?tag=RU8U8JL8J">here</a> if you are not redirected automatically.</p>
     <div class="footer">
         <h5>Have you got any issue? <a href="https://github.com/buoya42/buoya42.github.io/issues/new" target="_blank">Send us your feedback</a></h5>
     </div>
 </body>
-</html>
+    </html>

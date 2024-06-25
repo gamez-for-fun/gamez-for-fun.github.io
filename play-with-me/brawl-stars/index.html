@@ -5,14 +5,6 @@
     <meta http-equiv="refresh" content="10; url=brawlstars://addfriend?tag=RU8U8JL8J">
     <title>Brawl Stars</title>
     <style>
-        .footer {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-        }
-
         body {
             background: linear-gradient(to bottom, #006064, #004d40);
             height: 100vh;
@@ -28,11 +20,18 @@
             padding-top: 20px;
         }
 
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+
         a {
             color: white;
         }
         a:hover {
-            color: white;
             opacity: 0.6;
         }
 
@@ -43,13 +42,15 @@
         }
 
         .gif {
-            animation: playOnce 1s steps(1) forwards;
-            justify-content: center;
+            animation: playOnce 5s steps(10) forwards;
         }
 
         @keyframes playOnce {
+            from {
+                background-position: 0 0;
+            }
             to {
-                transform: translateX(100%); /* Adjust as needed */
+                background-position: -1000% 0;
             }
         }
     </style>
@@ -57,14 +58,14 @@
     <script>
         $(function() {
             $('#bookmarkme').click(function() {
-                if (window.sidebar && window.sidebar.addPanel) { // Mozilla Firefox Bookmark
+                if (window.sidebar && window.sidebar.addPanel) {
                     window.sidebar.addPanel(document.title, window.location.href, '');
-                } else if (window.external && ('AddFavorite' in window.external)) { // IE Favorite
+                } else if (window.external && ('AddFavorite' in window.external)) {
                     window.external.AddFavorite(location.href, document.title);
-                } else if (window.opera && window.print) { // Opera Hotlist
+                } else if (window.opera && window.print) {
                     this.title = document.title;
                     return true;
-                } else { // webkit - safari/chrome
+                } else {
                     alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
                 }
             });
@@ -79,7 +80,7 @@
 </head>
 <body>
     <div class="gif-container">
-        <img src="elprimo.gif" class="gif" />
+        <img src="elprimo.gif" class="gif" alt="El Primo GIF" />
     </div>
     <p>You will be redirected in 10 seconds...</p>
     <button onclick="window.location.href='brawlstars://addfriend?tag=RU8U8JL8J'">Redirect Now</button>

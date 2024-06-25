@@ -36,6 +36,12 @@
             opacity: 0.6;
         }
 
+        .gif-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
         .gif {
             animation: playOnce 1s steps(1) forwards;
         }
@@ -61,11 +67,19 @@
                     alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
                 }
             });
+
+            // Restart the GIF on page load
+            var gif = document.querySelector('.gif');
+            var gifSrc = gif.src;
+            gif.src = '';
+            gif.src = gifSrc;
         });
     </script>
 </head>
 <body>
-    <img src="elprimo.gif" class="gif" />
+    <div class="gif-container">
+        <img src="elprimo.gif" class="gif" />
+    </div>
     <p>You will be redirected in 10 seconds...</p>
     <button onclick="window.location.href='brawlstars://addfriend?tag=RU8U8JL8J'">Redirect Now</button>
     <p>Or click <a href="brawlstars://addfriend?tag=RU8U8JL8J">here</a> if you are not redirected automatically.</p>

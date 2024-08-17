@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="10; url=brawlstars://addfriend?tag=RU8U8JL8J">
+    <title>Brawl Stars</title>
+    <style>
+               @font-face {
+            font-family: 'BrawlStars';
+            src: url('brawlstars.ttf') format('truetype');
+        }
+        body {
+            font-family: 'BrawlStars', sans-serif;
+            background: #14B5BD;
+            height: 100vh;
+            margin: 0;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 20px;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        a {
+            color: white;
+        }
+        a:hover {
+            opacity: 0.6;
+        }
+
+        .gif-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .gif {
+            width: auto;
+            height: auto;
+            animation: playOnce 1s steps(10) forwards; /* Adjust steps(10) according to the number of frames in your GIF */
+        }
+
+        @keyframes playOnce {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: -1000% 0;
+            }
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(function() {
+            $('#bookmarkme').click(function() {
+                if (window.sidebar && window.sidebar.addPanel) {
+                    window.sidebar.addPanel(document.title, window.location.href, '');
+                } else if (window.external && ('AddFavorite' in window.external)) {
+                    window.external.AddFavorite(location.href, document.title);
+                } else if (window.opera && window.print) {
+                    this.title = document.title;
+                    return true;
+                } else {
+                    alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+                }
+            });
+
+            // Restart the GIF on page load
+            var gif = document.querySelector('.gif');
+            var gifSrc = gif.src;
+            gif.src = '';
+            setTimeout(function() {
+                gif.src = gifSrc;
+            }, 0);
+        });
+    </script>
+</head>
+<body>
+    <div class="gif-container">
+        <img src="elprimo.gif" class="gif" alt="Brawl Stars" />
+    </div>
+    <p>You will be redirected in 10 seconds...</p>
+    <p>Or click <a href="brawlstars://addfriend?tag=RU8U8JL8J">here</a> if you are not redirected automatically.</p>
+    <div class="footer">
+        <h5>Have you got any issue? <a href="https://github.com/buoya42/buoya42.github.io/issues/new" target="_blank">Send us your feedback</a></h5>
+    </div>
+</body>
+    </html>

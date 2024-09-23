@@ -11,13 +11,21 @@ For example:
 </br>
 + <a href="https://buoya42.github.io/minecraft/1.3/">1.3</a>
 </br>
-+ <a href="https://buoya42.github.io/minecraft/1.5.2.html">1.5.2</a>
++ <a href="https://buoya42.github.io/minecraft/1.5.2/">1.5.2</a>
 </br>
 + <a href="https://buoya42.github.io/minecraft/1.8%20all/">1.8 (singleplayer and multiplayer)</a>
 </br>
 + <a href="https://buoya42.github.io/minecraft/1.8/">1.8 (multiplayer only)</a>
 </br>
 + <a href="https://buoya42.github.io/minecraft/1.8%20international/">1.8 International (multiplayer only)</a>
+</details>
+<details>
+<summary>
+  <strong>Famous Games</strong>
+</summary>
++ <a href="https://buoya42.github.io/famous-games/cookie-clicker">Cookie Clicker</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/1v1-lol">1v1.LOL</a>
 </details>
 <details>
 <summary>
@@ -29,5 +37,5 @@ For example:
 </details>
 
 
-<h5>Have you got any issue? <a href="https://github.com/buoya42/buoya42.github.io/issues/new">Send us your feedback</a></h5>
+<h5>Have you got any issue? <a href="https://forms.gle/yKoSAmcGmJfGCedY6">Send us your feedback</a></h5>
   <!-- COMING SOON! -->

@@ -25,7 +25,7 @@ For example:
 </summary>
 + <a href="https://buoya42.github.io/famous-games/cookie-clicker">Cookie Clicker</a>
 </br>
-+ <a href="https://buoya42.github.io/famous-games/1v1-lol">1v1.LOL</a>
+# + <a href="https://buoya42.github.io/famous-games/1v1-lol">1v1.LOL</a>
 </details>
 <details>
 <summary>

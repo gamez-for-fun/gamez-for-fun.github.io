@@ -118,8 +118,8 @@
         <button id="snap">Snap Photo</button>
         <button id="toggleRecording">Start Recording</button>
     </div>
-    <canvas id="canvas"></canvas>
-    <video id="recording" controls></video>
+    <canvas id="canvas" style="transform: scaleX(-1); /* Mirror the video horizontally */"></canvas>
+    <video id="recording" controls style="transform: scaleX(-1); /* Mirror the video horizontally */"></video>
     <button id="downloadButton" style="display:none;">Download</button>
     <div id="countdown"></div>
 

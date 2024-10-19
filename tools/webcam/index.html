@@ -119,8 +119,8 @@
     <canvas id="canvas"></canvas>
     <video id="recording" controls></video>
     <div id="countdown"></div>
-    
-    <script>
+
+<script>
 const video = document.getElementById('webcam');
 const canvas = document.getElementById('canvas');
 const snap = document.getElementById('snap');
@@ -138,9 +138,17 @@ let isRecording = false;
 let recordStartTime;
 let timerInterval;
 
-// Function to get the list of available cameras
-navigator.mediaDevices.enumerateDevices()
-    .then(devices => {
+// Function to ask for camera and microphone permissions and start the video stream
+function initStream() {
+    navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true // Include audio in the stream
+    }).then(stream => {
+        video.srcObject = stream;
+        video.muted = true; // Mute the video element to avoid feedback
+        // Add the stream tracks to the list of available devices
+        return navigator.mediaDevices.enumerateDevices();
+    }).then(devices => {
         const videoDevices = devices.filter(device => device.kind === 'videoinput');
         videoDevices.forEach((device, index) => {
             const option = document.createElement('option');
@@ -148,12 +156,12 @@ navigator.mediaDevices.enumerateDevices()
             option.text = device.label || `Camera ${index + 1}`;
             cameraSelect.appendChild(option);
         });
-    })
-    .catch(err => {
-        console.error("Error getting devices: ", err);
+    }).catch(err => {
+        console.error("Error accessing webcam or microphone: ", err);
     });
+}
 
-// Function to start the video stream
+// Function to start the video stream for the selected camera
 function startStream(deviceId) {
     navigator.mediaDevices.getUserMedia({
         video: { deviceId: { exact: deviceId } },
@@ -174,11 +182,9 @@ cameraSelect.addEventListener('change', () => {
     startStream(cameraSelect.value);
 });
 
-// Initialize the first camera
-cameraSelect.addEventListener('DOMContentLoaded', () => {
-    if (cameraSelect.value) {
-        startStream(cameraSelect.value);
-    }
+// Initialize the stream when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    initStream();
 });
 
 // Apply filter to video

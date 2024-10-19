@@ -53,7 +53,6 @@
             border: 3px solid #007bff;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transform: scaleX(-1); /* Mirror the video horizontally */
         }
         #controls {
             margin-top: 10px;
@@ -118,8 +117,8 @@
         <button id="snap">Snap Photo</button>
         <button id="toggleRecording">Start Recording</button>
     </div>
-    <canvas id="canvas" style="transform: scaleX(-1); /* Mirror the video horizontally */"></canvas>
-    <video id="recording" controls style="transform: scaleX(-1); /* Mirror the video horizontally */"></video>
+    <canvas id="canvas"></canvas>
+    <video id="recording" controls></video>
     <button id="downloadButton" style="display:none;">Download</button>
     <div id="countdown"></div>
 

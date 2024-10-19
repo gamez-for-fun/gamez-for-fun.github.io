@@ -119,6 +119,7 @@
     </div>
     <canvas id="canvas"></canvas>
     <video id="recording" controls></video>
+    <button id="downloadButton" style="display:none;">Download</button>
     <div id="countdown"></div>
 
 <script>
@@ -193,15 +194,6 @@ filterSelect.addEventListener('change', () => {
     video.style.filter = filterSelect.value;
 });
 
-// Capture a photo
-snap.addEventListener('click', () => {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    context.filter = video.style.filter;
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    canvas.style.display = 'block';
-});
-
 // Toggle recording
 toggleRecording.addEventListener('click', () => {
     if (isRecording) {
@@ -237,6 +229,48 @@ function startCountdown() {
     });
 }
 
+// Start timer
+function startTimer() {
+    timer.style.display = "block";
+    timerInterval = setInterval(() => {
+        const elapsedTime = new Date() - recordStartTime;
+        const minutes = Math.floor(elapsedTime / 60000);
+        const seconds = Math.floor((elapsedTime % 60000) / 1000);
+        timer.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }, 1000);
+}
+
+    // Create the download button
+const downloadButton = document.createElement('button');
+downloadButton.textContent = 'Download';
+downloadButton.style.display = 'none'; // Initially hidden
+document.body.appendChild(downloadButton);
+
+downloadButton.addEventListener('click', () => {
+    if (canvas.style.display === 'block') {
+        const link = document.createElement('a');
+        link.download = 'photo.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    } else if (recording.style.display === 'block') {
+        const link = document.createElement('a');
+        link.download = 'video.webm';
+        link.href = recording.src;
+        link.click();
+    }
+});
+
+// Capture a photo
+snap.addEventListener('click', () => {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.filter = video.style.filter;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    canvas.style.display = 'block';
+    recording.style.display = 'none'; // Hide the recording video frame
+    downloadButton.style.display = 'block'; // Show the download button
+});
+
 // Start recording
 function startRecording() {
     recordedBlobs = [];
@@ -251,6 +285,8 @@ function startRecording() {
         const superBuffer = new Blob(recordedBlobs, { type: 'video/webm' });
         recording.src = window.URL.createObjectURL(superBuffer);
         recording.style.display = 'block';  // Show the recording video frame
+        canvas.style.display = 'none'; // Hide the photo
+        downloadButton.style.display = 'block'; // Show the download button
         recording.muted = true; // Mute the recording video element to avoid feedback
     };
     mediaRecorder.start();
@@ -263,17 +299,6 @@ function stopRecording() {
     mediaRecorder.stop();
     clearInterval(timerInterval);
     timer.textContent = "";
-}
-
-// Start timer
-function startTimer() {
-    timer.style.display = "block";
-    timerInterval = setInterval(() => {
-        const elapsedTime = new Date() - recordStartTime;
-        const minutes = Math.floor(elapsedTime / 60000);
-        const seconds = Math.floor((elapsedTime % 60000) / 1000);
-        timer.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    }, 1000);
 }
 
 </script>

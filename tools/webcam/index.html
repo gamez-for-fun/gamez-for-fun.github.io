@@ -134,6 +134,7 @@ const toggleRecording = document.getElementById('toggleRecording');
 const recording = document.getElementById('recording');
 const countdown = document.getElementById('countdown');
 const timer = document.getElementById('timer');
+const downloadButton = document.getElementById('downloadButton');
 
 let mediaRecorder;
 let recordedBlobs;
@@ -144,7 +145,7 @@ let timerInterval;
 // Function to ask for camera and microphone permissions and start the video stream
 function initStream() {
     navigator.mediaDevices.getUserMedia({
-        video: true,
+        video: { facingMode: 'user' }, // Use the front camera
         audio: true // Include audio in the stream
     }).then(stream => {
         video.srcObject = stream;
@@ -167,7 +168,7 @@ function initStream() {
 // Function to start the video stream for the selected camera
 function startStream(deviceId) {
     navigator.mediaDevices.getUserMedia({
-        video: { deviceId: { exact: deviceId } },
+        video: { deviceId: { exact: deviceId }, facingMode: 'user' }, // Use the front camera
         audio: true // Include audio in the stream
     }).then(stream => {
         video.srcObject = stream;
@@ -193,6 +194,20 @@ document.addEventListener('DOMContentLoaded', () => {
 // Apply filter to video
 filterSelect.addEventListener('change', () => {
     video.style.filter = filterSelect.value;
+});
+
+// Capture a photo
+snap.addEventListener('click', () => {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.filter = video.style.filter;
+    context.save();
+    context.scale(-1, 1); // Flip the image horizontally
+    context.drawImage(video, 0, 0, -canvas.width, canvas.height);
+    context.restore();
+    canvas.style.display = 'block';
+    recording.style.display = 'none'; // Hide the recording video frame
+    downloadButton.style.display = 'block'; // Show the download button
 });
 
 // Toggle recording
@@ -241,7 +256,7 @@ function startTimer() {
     }, 1000);
 }
 
-    // Create the download button
+// Create the download button
 const downloadButton = document.createElement('button');
 downloadButton.textContent = 'Download';
 downloadButton.style.display = 'none'; // Initially hidden
@@ -301,6 +316,9 @@ function stopRecording() {
     clearInterval(timerInterval);
     timer.textContent = "";
 }
+
+// Mirror the webcam feed
+video.style.transform = "scaleX(-1)";
 
 </script>
     </body>

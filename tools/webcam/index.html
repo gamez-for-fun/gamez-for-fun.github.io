@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam</title>
+    <style>
+        body {
+            background: white;
+            height: 100vh;
+            margin: 0;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            color: #000;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        select, button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        select {
+            width: 220px;
+            background-color: #fff;
+            color: #333;
+            border: 2px solid #ccc;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #video-container {
+            position: relative;
+        }
+        #webcam {
+            width: 640px;
+            height: 480px;
+            border: 3px solid #007bff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        #controls {
+            margin-top: 10px;
+        }
+        #canvas {
+            display: none;
+            margin-top: 10px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+        }
+        #recording {
+            display: none;
+            margin-top: 10px;
+            border: 3px solid #007bff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        #countdown {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-size: 48px;
+            padding: 20px 40px;
+            border-radius: 10px;
+        }
+        #timer {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Webcam</h1>
+    <select id="cameraSelect">
+        <option value="" disabled selected>Select a camera...</option>
+    </select>
+    <select id="filter">
+        <option value="none">No Filter</option>
+        <option value="grayscale(100%)">B&W</option>
+        <option value="sepia(100%)">Sepia</option>
+        <option value="contrast(200%)">Retro</option>
+        <option value="blur(5px)">Blur</option>
+        <option value="brightness(0.5)">Darken</option>
+        <option value="invert(100%)">Distorted</option>
+    </select>
+    <div id="video-container">
+        <video id="webcam" autoplay playsinline></video>
+        <div id="timer"></div>
+    </div>
+    <div id="controls">
+        <button id="snap">Snap Photo</button>
+        <button id="toggleRecording">Start Recording</button>
+    </div>
+    <canvas id="canvas"></canvas>
+    <video id="recording" controls></video>
+    <div id="countdown"></div>
+    
+    <script>
+const video = document.getElementById('webcam');
+const canvas = document.getElementById('canvas');
+const snap = document.getElementById('snap');
+const context = canvas.getContext('2d');
+const cameraSelect = document.getElementById('cameraSelect');
+const filterSelect = document.getElementById('filter');
+const toggleRecording = document.getElementById('toggleRecording');
+const recording = document.getElementById('recording');
+const countdown = document.getElementById('countdown');
+const timer = document.getElementById('timer');
+
+let mediaRecorder;
+let recordedBlobs;
+let isRecording = false;
+let recordStartTime;
+let timerInterval;
+
+// Function to get the list of available cameras
+navigator.mediaDevices.enumerateDevices()
+    .then(devices => {
+        const videoDevices = devices.filter(device => device.kind === 'videoinput');
+        videoDevices.forEach((device, index) => {
+            const option = document.createElement('option');
+            option.value = device.deviceId;
+            option.text = device.label || `Camera ${index + 1}`;
+            cameraSelect.appendChild(option);
+        });
+    })
+    .catch(err => {
+        console.error("Error getting devices: ", err);
+    });
+
+// Function to start the video stream
+function startStream(deviceId) {
+    navigator.mediaDevices.getUserMedia({
+        video: { deviceId: { exact: deviceId } },
+        audio: true // Include audio in the stream
+    }).then(stream => {
+        video.srcObject = stream;
+        video.muted = true; // Mute the video element to avoid feedback
+    }).catch(err => {
+        console.error("Error accessing webcam: ", err);
+    });
+}
+
+// Event listener for when the user changes the camera selection
+cameraSelect.addEventListener('change', () => {
+    if (video.srcObject) {
+        video.srcObject.getTracks().forEach(track => track.stop());
+    }
+    startStream(cameraSelect.value);
+});
+
+// Initialize the first camera
+cameraSelect.addEventListener('DOMContentLoaded', () => {
+    if (cameraSelect.value) {
+        startStream(cameraSelect.value);
+    }
+});
+
+// Apply filter to video
+filterSelect.addEventListener('change', () => {
+    video.style.filter = filterSelect.value;
+});
+
+// Capture a photo
+snap.addEventListener('click', () => {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.filter = video.style.filter;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    canvas.style.display = 'block';
+});
+
+// Toggle recording
+toggleRecording.addEventListener('click', () => {
+    if (isRecording) {
+        stopRecording();
+        toggleRecording.textContent = "Start Recording";
+        filterSelect.style.display = "block"; // Show filter list
+        isRecording = false;
+    } else {
+        startCountdown().then(() => {
+            startRecording();
+            toggleRecording.textContent = "Stop Recording";
+            filterSelect.style.display = "none"; // Hide filter list
+            isRecording = true;
+        });
+    }
+});
+
+// Start countdown
+function startCountdown() {
+    return new Promise((resolve) => {
+        countdown.style.display = "block";
+        countdown.textContent = "3";
+        setTimeout(() => {
+            countdown.textContent = "2";
+            setTimeout(() => {
+                countdown.textContent = "1";
+                setTimeout(() => {
+                    countdown.style.display = "none";
+                    resolve();
+                }, 1000);
+            }, 1000);
+        }, 1000);
+    });
+}
+
+// Start recording
+function startRecording() {
+    recordedBlobs = [];
+    const options = { mimeType: 'video/webm;codecs=vp9' };
+    mediaRecorder = new MediaRecorder(video.srcObject, options);
+    mediaRecorder.ondataavailable = event => {
+        if (event.data && event.data.size > 0) {
+            recordedBlobs.push(event.data);
+        }
+    };
+    mediaRecorder.onstop = () => {
+        const superBuffer = new Blob(recordedBlobs, { type: 'video/webm' });
+        recording.src = window.URL.createObjectURL(superBuffer);
+        recording.style.display = 'block';  // Show the recording video frame
+        recording.muted = true; // Mute the recording video element to avoid feedback
+    };
+    mediaRecorder.start();
+    recordStartTime = new Date();
+    startTimer();
+}
+
+// Stop recording
+function stopRecording() {
+    mediaRecorder.stop();
+    clearInterval(timerInterval);
+    timer.textContent = "";
+}
+
+// Start timer
+function startTimer() {
+    timer.style.display = "block";
+    timerInterval = setInterval(() => {
+        const elapsedTime = new Date() - recordStartTime;
+        const minutes = Math.floor(elapsedTime / 60000);
+        const seconds = Math.floor((elapsedTime % 60000) / 1000);
+        timer.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }, 1000);
+}
+
+</script>
+    </body>
+</html>

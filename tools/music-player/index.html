@@ -1,0 +1,155 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://buoya42.github.io/tools/music-player/logo.png" />
+  <title>Music Player</title>
+  <style>
+            body {
+            background: white;
+            height: 100vh;
+            margin: 0;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+    input[type="range"] {
+      width: 300px;
+    }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px;
+      background-color: transparent;
+      color: white;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      margin: 0 7.5px;
+      transition: transform 0.3s ease;
+    }
+    .button:hover {
+      border: 1px solid black; /* Add a black border */
+      transform: scale(1.1);
+    }
+    .repeat-active {
+      background-color: light-grey;
+      color: black;
+    }
+    .playing {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Music Player</h1>
+  <input type="file" id="audioFiles" multiple>
+  <br/>
+  <audio id="audioPlayer"></audio>
+  <br/>
+  <div class="button-container">
+    <button class="button" id="beforeButton"><img src="https://cdn.glitch.global/ac38f492-5e3f-4feb-95b9-c12a5d0ceae3/chevrons-left.png?v=1709827413110" width="25px" height="25px"></button>
+    <button class="button" id="backwardButton"><img src="https://cdn.glitch.global/ac38f492-5e3f-4feb-95b9-c12a5d0ceae3/player-track-prev.png?v=1706384240702" width="25px" height="25px"></button>
+    <button class="button" id="playPauseButton"><img src="https://cdn.glitch.global/ac38f492-5e3f-4feb-95b9-c12a5d0ceae3/player-play.png?v=1706384248436" width="25px" height="25px"></button>
+    <button class="button" id="forwardButton"><img src="https://cdn.glitch.global/ac38f492-5e3f-4feb-95b9-c12a5d0ceae3/player-track-next.png?v=1706384247079" width="25px" height="25px"></button>
+    <button class="button" id="nextButton"><img src="https://cdn.glitch.global/ac38f492-5e3f-4feb-95b9-c12a5d0ceae3/chevrons-right.png?v=1709827407807" width="25px" height="25px"></button>
+    <button class="button" id="repeatButton"><img src="https://cdn.glitch.global/ac38f492-5e3f-4feb-95b9-c12a5d0ceae3/repeat.png?v=1706384236964" width="25px" height="25px"></button>
+  </div>
+  <br/>
+  <label for="volControl">Volume:</label>
+  <input type="range" id="volControl" min="0" max="1" step="0.01">
+  <ul id="playlist"></ul>
+  <script>
+    var input = document.querySelector("#audioFiles");
+    var audio = document.querySelector("#audioPlayer");
+    var volControl = document.querySelector("#volControl");
+    var playPauseButton = document.querySelector("#playPauseButton");
+    var forwardButton = document.querySelector("#forwardButton");
+    var backwardButton = document.querySelector("#backwardButton");
+    var nextButton = document.querySelector("#nextButton");
+    var beforeButton = document.querySelector("#beforeButton");
+    var repeatButton = document.querySelector("#repeatButton");
+    var playlist = document.querySelector("#playlist");
+
+    var songs = [];
+    var currentSong = 0;
+
+    input.onchange = function() {
+      songs = Array.from(input.files);
+      audio.src = URL.createObjectURL(songs[currentSong]);
+      playlist.innerHTML = '';
+      songs.forEach(function(song, index) {
+        var li = document.createElement('li');
+        li.textContent = song.name;
+        li.onclick = function() {
+          currentSong = index;
+          audio.src = URL.createObjectURL(songs[currentSong]);
+          audio.play();
+        }
+        playlist.appendChild(li);
+      });
+    }
+
+    volControl.oninput = function() {
+      audio.volume = volControl.value;
+    }
+
+    playPauseButton.onclick = function() {
+      if (audio.paused) {
+        audio.play();
+        playPauseButton.innerHTML = '<img src="https://cdn.glitch.global/ac38f492-5e3f-4feb-95b9-c12a5d0ceae3/player-pause.png?v=1706384236964" width="25px" height="25px">';
+      } else {
+        audio.pause();
+        playPauseButton.innerHTML = '<img src="https://cdn.glitch.global/ac38f492-5e3f-4feb-95b9-c12a5d0ceae3/player-play.png?v=1706384248436" width="25px" height="25px">';
+      }
+    }
+
+    nextButton.onclick = function() {
+      currentSong = (currentSong + 1) % songs.length;
+      audio.src = URL.createObjectURL(songs[currentSong]);
+      audio.play();
+    }
+
+    beforeButton.onclick = function() {
+      currentSong = (currentSong - 1 + songs.length) % songs.length;
+      audio.src = URL.createObjectURL(songs[currentSong]);
+      audio.play();
+    }
+
+    repeatButton.onclick = function() {
+      audio.loop = !audio.loop;
+      repeatButton.classList.toggle('repeat-active');
+    }
+
+    audio.onplay = function() {
+      var lis = playlist.querySelectorAll('li');
+      lis.forEach(function(li) {
+        li.classList.remove('playing');
+      });
+      lis[currentSong].classList.add('playing');
+    }
+    
+    forwardButton.onclick = function() {
+      audio.currentTime += 10;
+    }
+    backwardButton.onclick = function() {
+      audio.currentTime -= 10;
+    }
+    repeatButton.onclick = function() {
+      audio.loop = !audio.loop;
+      repeatButton.classList.toggle('repeat-active');
+    }
+  </script>
+</body>
+</html>

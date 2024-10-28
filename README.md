@@ -43,7 +43,6 @@ For example:
 ##     
 
 ### And you can use some interesting tools.
-For example:
 </br>
 <details>
 <summary>

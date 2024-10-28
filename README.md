@@ -25,6 +25,12 @@ For example:
 </summary>
 + <a href="https://buoya42.github.io/famous-games/cookie-clicker">Cookie Clicker</a>
 </details>
+  <strong>Interesting Games</strong>
+</summary>
++ <a href="https://buoya42.github.io/interesting-games/fnaw">FNaW (Five Nights at Winston's)</a>
+</br>
++ <a href="https://buoya42.github.io/interesting-games/incredibox">Incredibox</a>
+</details>
 <details>
 <summary>
   <strong>Browser Hidden Games</strong>
@@ -34,6 +40,20 @@ For example:
 + <a href="https://buoya42.github.io/browser-hidden-games/t-rex">Google Chrome - T-Rex</a>
 </details>
 
+
+### And you can use some interesting tools.
+For example:
+</br>
+<details>
+<summary>
+  <strong>Tools</strong>
+</summary>
++ <a href="https://buoya42.github.io/tools/webcam">Webcam</a>
+</br>
++ <a href="https://buoya42.github.io/tools/screenshot">Screenshot</a>
+</br>
++ <a href="https://buoya42.github.io/tools/music-player">Music player</a>
+</details>
 
 <h5>Have you got any issue? <a href="https://forms.gle/yKoSAmcGmJfGCedY6">Send us your feedback</a></h5>
   <!-- COMING SOON! -->

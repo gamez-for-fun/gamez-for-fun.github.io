@@ -25,6 +25,8 @@ For example:
 </summary>
 + <a href="https://buoya42.github.io/famous-games/cookie-clicker">Cookie Clicker</a>
 </details>
+<details>
+<summary>
   <strong>Interesting Games</strong>
 </summary>
 + <a href="https://buoya42.github.io/interesting-games/fnaw">FNaW (Five Nights at Winston's)</a>

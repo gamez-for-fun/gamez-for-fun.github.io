@@ -3,6 +3,10 @@
     <meta charset='utf8'>
     <title>SWF Upload with Ruffle</title>
     <script src='assets/ruffle.js'></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="main.js"></script>
+      <noscript>Your browser doesn't have JavaScript enabled. Please enable JavaScript or switch to a browser that
+    supports it.</noscript>
     <style>
         #drop-area {
             border: 2px dashed #ccc;
@@ -49,61 +53,9 @@
 </head>
 <body>
 <h1>Ruffle game executor</h1>
-    <div id='ruffle'></div>
-</br>&nbsp
-</br>&nbsp
-</br>&nbsp
-</br>&nbsp
-</br>&nbsp
-  <label for="fileElem" style="cursor: pointer;">
-    <div id='drop-area'>
-        <p>Drag and drop your SWF file here or click here to upload</p>
-        <input type="file" id="fileElem" accept=".swf" onchange="handleFiles(this.files)">
-    </div>
-  </label>
-
-
-    <script>
-        var swfobject = {};
-        swfobject.embedSWF = function(url, cont, width, height) {
-            var ruffle = window.RufflePlayer.newest();
-            var player = Object.assign(document.getElementById(cont).appendChild(ruffle.createPlayer()), {
-                width: width,
-                height: height,
-                style: 'width: ' + width + 'px; height: ' + height + 'px',
-            });
-            player.load({ url: url });
-        };
-
-        function handleFiles(files) {
-            if (files.length > 0) {
-                var file = files[0];
-                if (file.type === "application/x-shockwave-flash") {
-                    var url = URL.createObjectURL(file);
-                    swfobject.embedSWF(url, 'ruffle', 500, 500);
-                } else {
-                    alert("Please upload a valid SWF file.");
-                }
-            }
-        }
-
-        // Drag and drop events
-        let dropArea = document.getElementById('drop-area');
-
-        dropArea.addEventListener('dragover', (event) => {
-            event.preventDefault();
-            dropArea.style.borderColor = "#000";
-        });
-
-        dropArea.addEventListener('dragleave', () => {
-            dropArea.style.borderColor = "#ccc";
-        });
-
-        dropArea.addEventListener('drop', (event) => {
-            event.preventDefault();
-            dropArea.style.borderColor = "#ccc";
-            handleFiles(event.dataTransfer.files);
-        });
-    </script>
+<body>
+<div id='ruffle' class="gameloc"></div>
+<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+<script id = "gabe">swfobject.embedSWF("1on1soccer.swf", 'ruffle', 800, 600);</script>
 </body>
 </html>

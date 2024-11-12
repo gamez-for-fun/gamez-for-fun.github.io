@@ -36,7 +36,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
             position: relative;
         }
         #fileElem {
@@ -78,10 +77,11 @@
     <button id="uploadButton" onclick="resetUpload()">Upload Another File</button>
 </header>
 <body>
-    <label for="fileElem"><div id="drop-area">
-        <p>Drag and drop your SWF file here or click here to upload</p>
-        <input type="file" id="fileElem" accept=".swf" onchange="handleFiles(this.files)">
-    </div></label>
+    <label for="fileElem">
+        <div id="drop-area">
+            <input type="file" id="fileElem" accept=".swf" onchange="handleFiles(this.files)">
+        </div>
+    </label>
     <div id='ruffle' class="gameloc"></div>
     
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
@@ -117,10 +117,9 @@
             document.getElementById('uploadButton').style.display = 'none'; // Hide upload button
             document.getElementById('fileElem').value = ""; // Reset file input
             document.getElementById('ruffle').innerHTML = ""; // Clear previous content
- }
+        }
 
-        // Drag and drop events
-        let dropArea = document.getElementById('drop-area');
+        // Drag and drop events let dropArea = document.getElementById('drop-area');
 
         dropArea.addEventListener('dragover', (event) => {
             event.preventDefault();

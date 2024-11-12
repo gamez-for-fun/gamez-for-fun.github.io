@@ -75,25 +75,9 @@
     </style>
 </head>
 <header>
-        
-     <script id="gabe">
-        var swfobject = {};
-        swfobject.embedSWF = function(url, cont, width, height) {
-            var ruffle = window.RufflePlayer.newest(),
-                player = Object.assign(document.getElementById(cont).appendChild(ruffle.createPlayer()), {
-                    width: '60px',
-                    height: '30px',
-                    style: 'width: 60px; height: 30px;',
-                });
-            
-            player.load({ url: url });
-        }
-        swfobject.embedSWF("ruffle.swf", 'ruffle', '60px', '30px');
-    </script>   
-        
+    <button id="uploadButton" onclick="resetUpload()">Upload Another File</button>
 </header>
 <body>
-    <button id="uploadButton" onclick="resetUpload()">Upload Another File</button>
     <label for="fileElem"><div id="drop-area">
         <p>Drag and drop your SWF file here or click here to upload</p>
         <input type="file" id="fileElem" accept=".swf" onchange="handleFiles(this.files)">

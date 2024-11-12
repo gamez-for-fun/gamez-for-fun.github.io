@@ -1,13 +1,32 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset='utf8'>
-    <title>SWF Upload with Ruffle</title>
-    <script src='assets/ruffle.js'></script>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <script src="main.js"></script>
-      <noscript>Your browser doesn't have JavaScript enabled. Please enable JavaScript or switch to a browser that
-    supports it.</noscript>
+    <title>Ruffle</title>
+    <noscript>Your browser doesn't have JavaScript enabled. Please enable JavaScript or switch to a browser that supports it.</noscript>
     <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #3b538b; /* Background color */
+            color: white;
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            position: relative; /* Make body a positioned element */
+        }
+        #ruffle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%; /* Full height */
+            margin-top: 20px; /* Space between button and game frame */
+        }
         #drop-area {
             border: 2px dashed #ccc;
             border-radius: 20px;
@@ -18,44 +37,103 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            position: relative;
         }
         #fileElem {
             display: none;
-            margin-top: 1rem;
-            padding: 0.5rem 1rem;
-            background-color: #00796b;
-            color: #fff;
+        }
+        #uploadButton {
+            display: none; /* Initially hidden */
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            position: absolute; /* Position button absolutely */
+            top: 10px; /* Distance from the top */
+            right: 10px; /* Distance from the right */
+            z-index: 10; /* Ensure it's above the game frame */
         }
-        #ruffle {
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+        #header {
+            position: absolute; /* Position header absolutely */
+            top: 0; /* Align to the top */
+            left: 0; /* Align to the left */
+            right: 0; /* Align to the right */
+            display: flex; /* Use flexbox for layout */
+            align-items: center; /* Center items vertically */
+            padding: 10px; /* Padding for the header */
+            z-index: 10; /* Ensure it's above other elements */
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #e0f7fa;
-            color: #333;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
+        #ruffleLogo {
+            margin-right: auto; /* Push the button to the right */
         }
-        #fileElem:hover {
-            background-color: #005f56;
+        label {
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-<h1>Ruffle game executor</h1>
-<body>
-<div id='ruffle' class="gameloc"></div>
-<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
-<script id = "gabe">swfobject.embedSWF("pacman.swf", 'ruffle', 800, 600);</script>
+    <button id="uploadButton" onclick="resetUpload()">Upload Another File</button>
+    <label for="fileElem"><div id="drop-area">
+        <p>Drag and drop your SWF file here or click here to upload</p>
+        <input type="file" id="fileElem" accept=".swf" onchange="handleFiles(this.files)">
+    </div></label>
+    <div id='ruffle' class="gameloc"></div>
+    
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <script id="gabe">
+        var swfobject = {};
+        swfobject.embedSWF = function(url, cont, width, height) {
+            var ruffle = window.RufflePlayer.newest(),
+                player = Object.assign(document.getElementById(cont).appendChild(ruffle.createPlayer()), {
+                    width: '100%',
+                    height: '100%',
+                    style: 'width: 100%; height: 100%;',
+                });
+            
+            player.load({ url: url });
+        }
+
+        function handleFiles(files) {
+            if (files.length > 0) {
+                var file = files[0];
+                if (file.type === "application/x-shockwave-flash") {
+                    var url = URL.createObjectURL(file);
+                    swfobject.embedSWF(url, 'ruffle', '100%', '100%');
+                    document.getElementById('drop-area').style.display = 'none'; // Hide drop area
+                    document.getElementById('uploadButton').style.display = 'block'; // Show upload button
+                } else {
+                    alert("Please upload a valid SWF file.");
+                }
+            }
+        }
+
+        function resetUpload() {
+            document.getElementById('drop-area').style.display = 'flex'; // Show drop area
+            document.getElementById('uploadButton').style.display = 'none'; // Hide upload button
+            document.getElementById('fileElem').value = ""; // Reset file input
+            document.getElementById('ruffle').innerHTML = ""; // Clear previous content
+ }
+
+        // Drag and drop events
+        let dropArea = document.getElementById('drop-area');
+
+        dropArea.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropArea.style.borderColor = "#000";
+        });
+
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.style.borderColor = "#ccc";
+        });
+
+        dropArea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropArea.style.borderColor = "#ccc";
+            handleFiles(event.dataTransfer.files);
+        });
+    </script>
 </body>
 </html>

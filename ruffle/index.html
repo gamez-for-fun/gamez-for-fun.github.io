@@ -76,19 +76,19 @@
 </head>
 <header>
         
-     <script id="titleanimation">
+     <script id="gabe">
         var swfobject = {};
         swfobject.embedSWF = function(url, cont, width, height) {
             var ruffle = window.RufflePlayer.newest(),
                 player = Object.assign(document.getElementById(cont).appendChild(ruffle.createPlayer()), {
-                    width: '100%',
-                    height: '100%',
-                    style: 'width: 100%; height: 100%;',
+                    width: '60px',
+                    height: '30px',
+                    style: 'width: 60px; height: 30px;',
                 });
             
             player.load({ url: url });
         }
-        swfobject.embedSWF("ruffle.swf", 'ruffle', '100%', '100%');
+        swfobject.embedSWF("ruffle.swf", 'ruffle', '60px', '30px');
     </script>   
         
 </header>

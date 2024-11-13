@@ -24,6 +24,41 @@ For example:
   <strong>Famous Games</strong>
 </summary>
 + <a href="https://buoya42.github.io/famous-games/cookie-clicker">Cookie Clicker</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/isaac">The binding of Isaac: Wrath of the lamb</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/ovo">OvO</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/pac-man">Pac-Man</a>
+</br>
+<details>
+<summary>
+  <strong>Papa's</strong>
+</summary>
++ <a href="https://buoya42.github.io/famous-games/papas/bakeria">Bakeria</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/papas/burgeria">Burgeria</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/papas/chesseria">Cheeseria</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/papas/cupcakeria">Cupcakeria</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/papas/donuteria">Donuteria</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/papas/frezzeria">Freezeria</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/papas/hotdoggeria">Hot Doggeria</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/papas/pastaria">Pastaria</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/papas/scooperia">Scooperia</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/papas/sushiria">Sushiria</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/papas/tacomia">Tacomia</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/papas/wingeria">Wingeria</a>
+</details>
 </details>
 <details>
 <summary>

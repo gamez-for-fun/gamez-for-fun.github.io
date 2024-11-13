@@ -3,14 +3,14 @@
 <head>
 <style>
 h1, h2 {
-text-align: center;
+    text-align: center;
 }
 .footer {
-position: fixed;
-left: 0;
-bottom: 0;
-width: 100%;
-text-align: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
 }
 
 body {
@@ -27,33 +27,33 @@ body {
 }
 
 a {
-color: white;
+    color: white;
 }
 a:hover {
-color: white;
-opacity: 0.6;
+    color: white;
+    opacity: 0.6;
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
-    $(function() {
-  $('#bookmarkme').click(function() {
-    if (window.sidebar && window.sidebar.addPanel) { // Mozilla Firefox Bookmark
-      window.sidebar.addPanel(document.title, window.location.href, '');
-    } else if (window.external && ('AddFavorite' in window.external)) { // IE Favorite
-      window.external.AddFavorite(location.href, document.title);
-    } else if (window.opera && window.print) { // Opera Hotlist
-      this.title = document.title;
-      return true;
-    } else { // webkit - safari/chrome
-      alert('Press ' <li>(navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') <li>' <li>D to bookmark this page.');
-    }
-  });
+$(function() {
+    $('#bookmarkme').click(function(e) {
+        e.preventDefault(); // Prevent the default action of the link
+        if (window.sidebar && window.sidebar.addPanel) { // Mozilla Firefox Bookmark
+            window.sidebar.addPanel(document.title, window.location.href, '');
+        } else if (window.external && ('AddFavorite' in window.external)) { // IE Favorite
+            window.external.AddFavorite(location.href, document.title);
+        } else if (window.opera && window.print) { // Opera Hotlist
+            this.title = document.title;
+            return true;
+        } else { // webkit - Safari/Chrome
+            alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+        }
+    });
 });
 </script>
 <title>buoya42.github.io</title>
 </head>
-<body>
 <body>
     <h1>buoya42.github.io</h1>
     <h2>Welcome to my website!</h2>

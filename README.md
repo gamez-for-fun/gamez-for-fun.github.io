@@ -39,13 +39,13 @@ For example:
 </br>
 + <a href="https://buoya42.github.io/famous-games/papas/burgeria">Burgeria</a>
 </br>
-+ <a href="https://buoya42.github.io/famous-games/papas/chesseria">Cheeseria</a>
++ <a href="https://buoya42.github.io/famous-games/papas/cheeseria">Cheeseria</a>
 </br>
 + <a href="https://buoya42.github.io/famous-games/papas/cupcakeria">Cupcakeria</a>
 </br>
 + <a href="https://buoya42.github.io/famous-games/papas/donuteria">Donuteria</a>
 </br>
-+ <a href="https://buoya42.github.io/famous-games/papas/frezzeria">Freezeria</a>
++ <a href="https://buoya42.github.io/famous-games/papas/freezeria">Freezeria</a>
 </br>
 + <a href="https://buoya42.github.io/famous-games/papas/hotdoggeria">Hot Doggeria</a>
 </br>

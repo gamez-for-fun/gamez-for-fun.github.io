@@ -67,6 +67,8 @@ For example:
   <strong>Interesting Games</strong>
 </summary>
 + <a href="https://buoya42.github.io/interesting-games/fnaw">FNaW (Five Nights at Winston's)</a>
+</br>
++ <a href="https://buoya42.github.io/interesting-games/bloxors">Bloxors</a>
 </details>
 <details>
 <summary>

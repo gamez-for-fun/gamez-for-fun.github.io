@@ -6,7 +6,7 @@
     <title>Ruffle</title>
     <noscript>Your browser doesn't have JavaScript enabled. Please enable JavaScript or switch to a browser that supports it.</noscript>
     <style>
-        html, body {
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
@@ -18,7 +18,6 @@
             height: 100vh;
             text-align: center;
             position: relative; /* Make body a positioned element */
-            cursor:url("https://cdn.glitch.global/439ea1f6-6f72-484a-9bdd-6e13fd0a19f1/cursor.png?v=1732036805112"), auto;
         }
         #ruffle {
             display: flex;
@@ -40,9 +39,6 @@
             text-align: center;
             position: relative;
         }
-        #drop-area:hover {
-            cursor:url("https://cdn.glitch.global/439ea1f6-6f72-484a-9bdd-6e13fd0a19f1/cursor.png?v=1732036805112"), default;
-        }
         #fileElem {
             display: none;
         }
@@ -53,14 +49,28 @@
             color: white;
             border: none;
             border-radius: 5px;
-            cursor:url("https://cdn.glitch.global/439ea1f6-6f72-484a-9bdd-6e13fd0a19f1/cursor.png?v=1732036805112"), default;
+            cursor: pointer;
             position: absolute; /* Position button absolutely */
             top: 10px; /* Distance from the top */
             right: 10px; /* Distance from the right */
             z-index: 10; /* Ensure it's above the game frame */
         }
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        #ruffleLogo {
+            margin-right: auto; /* Push the button to the right */
+        }
         label {
-            cursor:url("https://cdn.glitch.global/439ea1f6-6f72-484a-9bdd-6e13fd0a19f1/cursor.png?v=1732036805112"), default;
+            cursor: pointer;
         }
     </style>
 </head>

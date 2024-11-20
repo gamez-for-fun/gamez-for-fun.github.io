@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        h1, h2 {
+            text-align: center;
+            color: #FF7518; /* Pumpkin Orange */
+        }
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background-color: #000000; /* Black background for footer */
+            color: #FF7518; /* Orange text for footer */
+        }
+        html, body {
+            /* Create a linear gradient from top to bottom with dark purple and black */
+            background: linear-gradient(to bottom, #4B0082, #000000);
+            /* Ensure the background covers the whole page */
+            height: 100vh;
+            margin: 0;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #FF7518; /* Orange text for contrast */
+            /* Add a margin */
+            margin: 20px;
+            cursor: url("https://cdn.glitch.global/439ea1f6-6f72-484a-9bdd-6e13fd0a19f1/cursor.png?v=1732053723470"), auto;
+        }
+        a {
+            color: #FF7518; /* Orange for links */
+        }
+        a:hover {
+            color: #FF7518;
+            opacity: 0.6;
+            cursor: url("https://cdn.glitch.global/439ea1f6-6f72-484a-9bdd-6e13fd0a19f1/cursor.png?v=1732053723470"), default;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(function() {
+            $('#bookmarkme').click(function(e) {
+                e.preventDefault(); // Prevent the default action of the link
+                if (window.sidebar && window.sidebar.addPanel) { // Mozilla Firefox Bookmark
+                    window.sidebar.addPanel(document.title, window.location.href, '');
+                } else if (window.external && ('AddFavorite' in window.external)) { // IE Favorite
+                    window.external.AddFavorite(location.href, document.title);
+                } else if (window.opera && window.print) { // Opera Hotlist
+                    this.title = document.title;
+                    return true;
+                } else { // webkit - Safari/Chrome
+                    alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+                }
+            });
+        });
+    </script>
+    <title>buoya42.github.io</title>
+</head>
+<body>
+    <h1>buoya42.github.io</h1>
+    <h2>Welcome to my website!</h2>
+    <h3>Here you can play some typical games.</h3>
+    <p>For example:</p>
+    <details>
+        <summary>
+            <strong>Minecraft</strong>
+        </summary>
+        <li><a href="https://buoya42.github.io/minecraft/1.2.6/">1.2.6</a></li>
+        <li><a href="https://buoya42.github.io/minecraft/1.3/">1.3</a></li>
+        <li><a href="https://buoya42.github.io/minecraft/1.5.2/">1.5.2</a></li>
+        <li><a href="https://buoya42.github.io/minecraft/1.8%20all/">1.8 (singleplayer and multiplayer)</a></li>
+        <li><a href="https://buoya42.github.io/minecraft/1.8/">1.8 (multiplayer only)</a></li>
+        <li><a href="https://buoya42.github.io/minecraft/1.8%20international/">1.8 International (multiplayer only)</a></li>
+    </details>
+    <details>
+        <summary>
+            <strong>Famous Games</strong>
+        </summary>
+        <li><a href="https://buoya42.github.io/famous-games/cookie-clicker">Cookie Clicker</a></li>
+        <li><a href="https://buoya42.github.io/famous-games/isaac">The Binding of Isaac: Wrath of the Lamb</a></li>
+        <li><a href="https://buoya42.github.io/famous-games/ovo">OvO</a></li>
+        <li><a href="https://buoya42.github.io/famous-games/pac-man">Pac-Man</a></li>
+        <li><a href="https://buoya42.github.io/famous-games/alien-hominid">Alien Hominid</a></li>
+        <details>
+            <summary>
+                <strong>Papa's</strong>
+            </summary>
+            <li><a href="https://buoya42.github.io/famous-games/papas/bakeria">Bakeria</a></li>
+            <li><a href="https://buoya42.github.io/famous-games/papas/burgeria">Burgeria</a></li>
+            <li><a href="https://buoya42.github.io/famous-games/papas/cheeseria">Cheeseria</a></li>
+            <li><a href="https://buoya42.github.io/famous-games/papas/cupcakeria">Cupcakeria</a></li>
+            <li><a href="https://buoya42.github.io/famous-games/papas/donuteria">Donuteria</a></li>
+            <li><a href="https://buoya42.github.io/famous-games/papas/freezeria">Freezeria</a></li>
+            <li><a href="https://buoya42.github.io/famous-games/papas/hotdoggeria">Hot Doggeria</a></li>
+            <li><a href="https://buoya42.github.io/famous-games/papas/pastaria">Pastaria</a></li>
+            <li><a href="https://buoya42.github.io/famous-games/papas/scooperia">Scooperia</a></li>
+            <li><a href="https://buoya42.github.io/famous-games/papas/sushiria">Sushiria</a></li>
+            <li><a href="https://buoya42.github.io/famous-games/papas/tacomia">Tacomia</a></li>
+            <li><a href="https://buoya42.github.io/famous-games/papas/wingeria">Wingeria</a></li>
+        </details>
+    </details>
+    <details>
+        <summary>
+            <strong>Interesting Games</strong>
+        </summary>
+        <li><a href="https://buoya42.github.io/interesting-games/fnaw">FNaW (Five Nights at Winston's)</a></li>
+        <li><a href="https://buoya42.github.io/interesting-games/bloxors">Bloxors</a></li>
+    </details>
+    <details>
+        <summary>
+            <strong>Browser Hidden Games</strong>
+        </summary>
+        <li><a href="https://buoya42.github.io/browser-hidden-games/surf">Microsoft Edge - Surf/Ski</a></li>
+        <li><a href="https://buoya42.github.io/browser-hidden-games/t-rex">Google Chrome - T-Rex</a></li>
+    </details>
+
+    <h3>And you can use some interesting tools.</h3>
+    <details>
+        <summary>
+            <strong>Tools</strong>
+        </summary>
+        <li><a href="https://buoya42.github.io/tools/webcam">Webcam</a></li>
+        <li><a href="https://buoya42.github.io/tools/screenshot">Screenshot</a></li>
+        <li><a href="https://buoya42.github.io/tools/music-player">Music player</a></li>
+    </details>
+
+    <div class="footer">
+        <a href="about-me"><img src="https://avatars.githubusercontent.com/buoya42" width="60px" height="60px" style="border-radius: 100%;" /></a>
+        <h5>Have you got any issue? <a href="https://forms.gle/yKoSAmcGmJfGCedY6" target="_blank">Send me your feedback</a> | <a id="bookmarkme" href="#" rel="sidebar" title="bookmark this page">Bookmark This Page</a></h5>
+    </div>
+    <!-- COMING SOON! -->
+</body>
+</html>

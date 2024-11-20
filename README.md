@@ -1,4 +1,4 @@
-[![StandWithPalestine](https://github.com/buoya42/buoya42.github.io/blob/main/StandWithPalestine.svg)](https://stand-with-palestine.org/)
+[![StandWithPalestine](https://github.com/buoya42/buoya42.github.io/blob/main/StandWithPalestine.svg)](https://www.islamic-relief.org.uk/giving/appeals/palestine/)
 # buoya42.github.io
 ## Welcome to my website!
 ### Here you can play some typical games.

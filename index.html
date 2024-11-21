@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +25,7 @@ html, body {
     color: white;
     /* Add a margin */
     margin: 20px;
-    cursor:url("https://cdn.glitch.global/439ea1f6-6f72-484a-9bdd-6e13fd0a19f1/cursor.png?v=1732053723470"), auto;
+    cursor: url("https://cdn.glitch.global/439ea1f6-6f72-484a-9bdd-6e13fd0a19f1/cursor.png?v=1732053723470"), auto;
 }
 
 a {
@@ -33,7 +34,7 @@ a {
 a:hover {
     color: white;
     opacity: 0.6;
-    cursor:url("https://cdn.glitch.global/439ea1f6-6f72-484a-9bdd-6e13fd0a19f1/cursor.png?v=1732053723470"), default;
+    cursor: url("https://cdn.glitch.global/439ea1f6-6f72-484a-9bdd-6e13fd0a19f1/cursor.png?v=1732053723470"), default;
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -52,6 +53,17 @@ $(function() {
             alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
         }
     });
+
+    // Date-checking script for Halloween and Christmas
+    var today = new Date();
+    var month = today.getMonth() + 1; // Months are zero-based
+    var day = today.getDate();
+
+    if (month === 10 && day >= 3 && day <= 31) {
+        window.location.href = "/events/halloween";
+    } else if (month === 12 && day >= 3 && day <= 26) {
+        window.location.href = "/events/xmas";
+    }
 });
 </script>
 <title>buoya42.github.io</title>

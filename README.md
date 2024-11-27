@@ -35,6 +35,8 @@ For example:
 + <a href="https://buoya42.github.io/famous-games/alien-hominid">Alien Hominid</a>
 </br>
 + <a href="https://buoya42.github.io/famous-games/mario-bros">Mario Bros</a>
+</br>
++ <a href="https://buoya42.github.io/famous-games/monkey-mart">Monkey Mart</a>
 <details>
 <summary>
   <strong>Papa's</strong>

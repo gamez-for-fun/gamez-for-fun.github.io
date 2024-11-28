@@ -75,6 +75,8 @@ For example:
 + <a href="https://buoya42.github.io/interesting-games/bloxors">Bloxors</a>
 </br>
 + <a href="https://buoya42.github.io/interesting-games/dragon-maker">Dragon Maker</a>
+</br>
++ <a href="https://buoya42.github.io/interesting-games/fairy-tail-vs-one-piece">Fairy Tail VS One Piece</a>
 </details>
 <details>
 <summary>

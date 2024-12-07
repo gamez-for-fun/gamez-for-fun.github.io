@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://buoya42.github.io/tools/file-to-uri/logo.png" />
+    <title>File to Data URI Converter</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            position: relative;
+        }
+        #drop-area {
+            border: 2px dashed #ccc;
+            border-radius: 20px;
+            width: 500px;
+            height: 500px;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        #fileElem {
+            display: none;
+        }
+        #uploadButton {
+            display: none;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+        #result {
+            width: 540px; /* 50% of 1080px */
+            height: 100px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            overflow: auto;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:active {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>File to Data URI Converter</h1>
+    <div id="drop-area">
+        <label for="fileElem">Drag & Drop File Here or Click to Select</label>
+        <input type="file" id="fileElem" />
+    </div>
+    <button onclick="convertToDataURI()">Convert</button>
+    <textarea id="result" readonly></textarea>
+    <button onclick="copyToClipboard()">Copy Data URI</button>
+
+    <script>
+        const dropArea = document.getElementById('drop-area');
+        const fileElem = document.getElementById('fileElem');
+        const resultBox = document.getElementById('result');
+
+        dropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropArea.classList.add('dragover');
+        });
+
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('dragover');
+        });
+
+        dropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropArea.classList.remove('dragover');
+            fileElem.files = e.dataTransfer.files;
+        });
+
+        function convertToDataURI() {
+            const file = fileElem.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const dataURI = e.target.result;
+                    resultBox.value = dataURI;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('Please select or drop a file first.');
+            }
+        }
+
+        function copyToClipboard() {
+            resultBox.select();
+            document.execCommand('copy');
+            alert('Data URI copied to clipboard!');
+        }
+    </script>
+</body>
+</html>

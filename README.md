@@ -26,17 +26,32 @@ For example:
 </summary>
 + <a href="https://buoya42.github.io/famous-games/cookie-clicker">Cookie Clicker</a>
 </br>
-+ <a href="https://buoya42.github.io/famous-games/isaac">The binding of Isaac: Wrath of the lamb</a>
-</br>
++ <a href="https://buoya42.github.io/famous-games/isaac">The Binding of Isaac: Wrath of the Lamb</a>
+  </br>
 + <a href="https://buoya42.github.io/famous-games/ovo">OvO</a>
 </br>
 + <a href="https://buoya42.github.io/famous-games/pac-man">Pac-Man</a>
-</br>
+  </br>
 + <a href="https://buoya42.github.io/famous-games/alien-hominid">Alien Hominid</a>
-</br>
+  </br>
 + <a href="https://buoya42.github.io/famous-games/mario-bros">Mario Bros</a>
-</br>
+  </br>
 + <a href="https://buoya42.github.io/famous-games/monkey-mart">Monkey Mart</a>
+  </br>
++ <a href="https://buoya42.github.io/famous-games/1v1-lol">1v1 LOL</a>
+  </br>
++ <a href="https://buoya42.github.io/famous-games/backrooms-3d">Backrooms 3D</a>
+  </br>
++ <a href="https://buoya42.github.io/famous-games/basket-random">Basket Random</a>
+  </br>
++ <a href="https://buoya42.github.io/famous-games/boxel-rebound">Boxel Rebound</a>
+  </br>
++ <a href="https://buoya42.github.io/famous-games/drive-mad">Drive Mad</a>
+  </br>
++ <a href="https://buoya42.github.io/famous-games/rooftop-snipers">Rooftop Snipers</a>
+  </br>
++ <a href="https://buoya42.github.io/famous-games/terraria">Terraria</a>
+  </br>
 <details>
 <summary>
   <strong>Papa's</strong>

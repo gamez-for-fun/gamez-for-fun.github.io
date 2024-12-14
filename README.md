@@ -51,6 +51,8 @@ For example:
 + <a href="https://buoya42.github.io/famous-games/rooftop-snipers">Rooftop Snipers</a>
   </br>
 + <a href="https://buoya42.github.io/famous-games/terraria">Terraria</a>
+    </br>
++ <a href="https://buoya42.github.io/famous-games/among-us">Among Us</a>
   </br>
 <details>
 <summary>

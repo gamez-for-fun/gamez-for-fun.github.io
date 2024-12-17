@@ -24,6 +24,8 @@ For example:
 <summary>
   <strong>Famous Games</strong>
 </summary>
++ <a href="https://buoya42.github.io/famous-games/bitlife">BitLife</a>
+</br>
 + <a href="https://buoya42.github.io/famous-games/cookie-clicker">Cookie Clicker</a>
 </br>
 + <a href="https://buoya42.github.io/famous-games/isaac">The Binding of Isaac: Wrath of the Lamb</a>

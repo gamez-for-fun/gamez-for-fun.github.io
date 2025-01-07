@@ -125,6 +125,8 @@ For example:
 + <a href="https://buoya42.github.io/tools/webcam">Webcam</a>
 </br>
 + <a href="https://buoya42.github.io/tools/screenshot">Screenshot</a>
+  </br>
++ <a href="https://buoya42.github.io/tools/screen-recorder">Screen recorder</a>
 </br>
 + <a href="https://buoya42.github.io/tools/music-player">Music player</a>
 </details>

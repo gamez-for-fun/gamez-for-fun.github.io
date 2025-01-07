@@ -11,6 +11,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
   <style>
+   @font-face { font-family: 'Telemarines'; src: url('telemarines.ttf') format('truetype'); }
    body {
             font-family: 'Roboto', sans-serif;
         }
@@ -28,6 +29,7 @@
         .movie-card:hover .movie-info {
             opacity: 1;
         }
+   .echo-font { font-family: 'Telemarines', sans-serif; }
   </style>
   <script>
    function changeVideo(src, title, description) {
@@ -47,22 +49,13 @@
   <header class="bg-gray-800 p-4 flex justify-between items-center">
    <div class="flex items-center space-x-4">
     <img alt="Logo of Echo, a stylized film reel" class="w-12 h-12" height="50" src="https://storage.googleapis.com/a1aa/image/NVfqybgd4LWMQSkm1SdUIfrmvqhWcpvwmmSic0uoPOQ3geEoA.jpg" width="50"/>
-    <h1 class="text-2xl font-bold" style=";">
+    <h1 class="text-2xl font-bold echo-font">
      ecH|o
     </h1>
    </div>
    <nav class="space-x-4">
     <a class="hover:text-gray-400" href="#">
      Home
-    </a>
-    <a class="hover:text-gray-400" href="#">
-     Movies
-    </a>
-    <a class="hover:text-gray-400" href="#">
-     TV Shows
-    </a>
-    <a class="hover:text-gray-400" href="#">
-     My List
     </a>
    </nav>
   </header>

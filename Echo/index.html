@@ -1,0 +1,153 @@
+
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Echo
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .movie-card {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .movie-card:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        .movie-info {
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        .movie-card:hover .movie-info {
+            opacity: 1;
+        }
+  </style>
+  <script>
+   function changeVideo(src, title, description) {
+            const videoElement = document.getElementById('featured-video');
+            const videoSource = document.getElementById('video-source');
+            const videoTitle = document.getElementById('video-title');
+            const videoDescription = document.getElementById('video-description');
+
+            videoSource.src = src;
+            videoElement.load();
+            videoTitle.textContent = title;
+            videoDescription.textContent = description;
+        }
+  </script>
+ </head>
+ <body class="bg-gray-900 text-white">
+  <header class="bg-gray-800 p-4 flex justify-between items-center">
+   <div class="flex items-center space-x-4">
+    <img alt="Logo of Echo, a stylized film reel" class="w-12 h-12" height="50" src="https://storage.googleapis.com/a1aa/image/NVfqybgd4LWMQSkm1SdUIfrmvqhWcpvwmmSic0uoPOQ3geEoA.jpg" width="50"/>
+    <h1 class="text-2xl font-bold" style=";">
+     ecH|o
+    </h1>
+   </div>
+   <nav class="space-x-4">
+    <a class="hover:text-gray-400" href="#">
+     Home
+    </a>
+    <a class="hover:text-gray-400" href="#">
+     Movies
+    </a>
+    <a class="hover:text-gray-400" href="#">
+     TV Shows
+    </a>
+    <a class="hover:text-gray-400" href="#">
+     My List
+    </a>
+   </nav>
+  </header>
+  <main class="p-4">
+   <section class="mb-8">
+    <h2 class="text-3xl font-bold mb-4">
+     Featured Movie
+    </h2>
+    <div class="relative">
+     <video class="w-full h-auto" controls="" id="featured-video">
+      <source id="video-source" src="https://example.com/video" type="video/mp4"/>
+      Your browser does not support the video tag.
+     </video>
+     <div class="absolute bottom-4 left-4 bg-gray-800 bg-opacity-75 p-2 rounded">
+      <h3 class="text-xl font-bold" id="video-title">
+       Movie Title
+      </h3>
+      <p class="text-sm" id="video-description">
+       A brief description of the featured movie.
+      </p>
+     </div>
+    </div>
+   </section>
+   <section>
+    <h2 class="text-3xl font-bold mb-4">
+     Trending Now
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+     <div class="relative movie-card" onclick="changeVideo('https://example.com/video1', 'Movie 1', 'A dramatic story of love and loss.')">
+      <img alt="Poster of Movie 1, showing a dramatic scene with the main character" class="w-full h-auto" height="300" src="https://storage.googleapis.com/a1aa/image/2IoSizlAmoYsEFRdTfLdI2ItbCt3zGXCuPA6je4B4laAheEoA.jpg" width="200"/>
+      <div class="absolute bottom-2 left-2 bg-gray-800 bg-opacity-75 p-1 rounded movie-info">
+       <p class="text-sm">
+        Movie 1: A dramatic story of love and loss.
+       </p>
+      </div>
+     </div>
+     <div class="relative movie-card" onclick="changeVideo('https://example.com/video2', 'Movie 2', 'An action-packed adventure.')">
+      <img alt="Poster of Movie 2, showing an action-packed scene" class="w-full h-auto" height="300" src="https://storage.googleapis.com/a1aa/image/5f7VV4fGefD2mSeqeZilRl78WbUkoXlfRbSfWwtJNhIveB9EoA.jpg" width="200"/>
+      <div class="absolute bottom-2 left-2 bg-gray-800 bg-opacity-75 p-1 rounded movie-info">
+       <p class="text-sm">
+        Movie 2: An action-packed adventure.
+       </p>
+      </div>
+     </div>
+     <div class="relative movie-card" onclick="changeVideo('https://example.com/video3', 'Movie 3', 'A heartwarming romantic tale.')">
+      <img alt="Poster of Movie 3, showing a romantic scene" class="w-full h-auto" height="300" src="https://storage.googleapis.com/a1aa/image/2fbEHvhp2hWsO6P83mRCl2SZ9vKkf6LYRaba1OwhQwz6geEoA.jpg" width="200"/>
+      <div class="absolute bottom-2 left-2 bg-gray-800 bg-opacity-75 p-1 rounded movie-info">
+       <p class="text-sm">
+        Movie 3: A heartwarming romantic tale.
+       </p>
+      </div>
+     </div>
+     <div class="relative movie-card" onclick="changeVideo('https://example.com/video4', 'Movie 4', 'A thrilling sci-fi adventure.')">
+      <img alt="Poster of Movie 4, showing a sci-fi scene" class="w-full h-auto" height="300" src="https://storage.googleapis.com/a1aa/image/zS0LieMOM8zPGaK4t4kq8XHeyLVpLenYbkuCYvFWL8PEC9EoA.jpg" width="200"/>
+      <div class="absolute bottom-2 left-2 bg-gray-800 bg-opacity-75 p-1 rounded movie-info">
+       <p class="text-sm">
+        Movie 4: A thrilling sci-fi adventure.
+       </p>
+      </div>
+     </div>
+     <div class="relative movie-card" onclick="changeVideo('https://example.com/video5', 'Movie 5', 'A spine-chilling horror story.')">
+      <img alt="Poster of Movie 5, showing a horror scene" class="w-full h-auto" height="300" src="https://storage.googleapis.com/a1aa/image/1v25U2g2LD6QO5T47gVqtfL4VlCpu1cBCoaJy0krKeM4geEoA.jpg" width="200"/>
+      <div class="absolute bottom-2 left-2 bg-gray-800 bg-opacity-75 p-1 rounded movie-info">
+       <p class="text-sm">
+        Movie 5: A spine-chilling horror story.
+       </p>
+      </div>
+     </div>
+     <div class="relative movie-card" onclick="changeVideo('https://example.com/video6', 'Movie 6', 'A hilarious comedy.')">
+      <img alt="Poster of Movie 6, showing a comedy scene" class="w-full h-auto" height="300" src="https://storage.googleapis.com/a1aa/image/mzMo8flGjCVuX6z1nXDGHEG7sUfT1hMvvZJLlukHVRM8geEoA.jpg" width="200"/>
+      <div class="absolute bottom-2 left-2 bg-gray-800 bg-opacity-75 p-1 rounded movie-info">
+       <p class="text-sm">
+        Movie 6: A hilarious comedy.
+       </p>
+      </div>
+     </div>
+    </div>
+   </section>
+  </main>
+  <footer class="bg-gray-800 p-4 mt-8">
+   <div class="flex justify-between items-center">
+    <p>
+     This is an open-source project.
+    </p>
+   </div>
+  </footer>
+ </body>
+</html>

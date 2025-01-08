@@ -28,6 +28,14 @@
             opacity: 1;
         }
         .echo-font { font-family: 'Telemarines', sans-serif; }
+        .video-container {
+            position: relative;
+        }
+        .mute-button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -41,13 +49,16 @@
     </header>
     <main class="p-4">
         <section class="mb-8">
-            <div class="relative">
-                <video autoplay muted>
+            <div class="video-container">
+                <video id="echoVideo" autoplay muted>
                     <source src="https://cdn.glitch.global/439ea1f6-6f72-484a-9bdd-6e13fd0a19f1/Echo.mp4?v=1736285810339" type="video/mp4"/>
                     Your browser does not support the video tag.
                 </video>
                 <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
                     <a href="https://buoya42.github.io/Echo/home" style="text-align: center; color: black; border: 1px solid white; padding: 10px; background-color: white; text-decoration: none; border-radius: 5px;">Let's start!</a>
+                </div>
+                <div class="mute-button">
+                    <button id="muteButton" style="color: black; border: 1px solid white; padding: 5px 10px; background-color: white; text-decoration: none; border-radius: 5px;"><img src="https://buoya42.github.io/Echo/mute.png" alt="Mute" width="24px" height="24px" /></button>
                 </div>
             </div>
         </section>
@@ -57,5 +68,17 @@
             <p>This is an open-source project.</p>
         </div>
     </footer>
+    <script>
+        document.getElementById('muteButton').addEventListener('click', function() {
+            var video = document.getElementById('echoVideo');
+            if (video.muted) {
+                video.muted = false;
+                this.innerHTML = '<img src="https://buoya42.github.io/Echo/volume.png" alt="Volume" width="24px" height="24px" />';
+            } else {
+                video.muted = true;
+                this.innerHTML = '<img src="https://buoya42.github.io/Echo/mute.png" alt="Mute" width="24px" height="24px" />';
+            }
+        });
+    </script>
 </body>
 </html>

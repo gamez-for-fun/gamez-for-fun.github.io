@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link rel="icon" href="logo.png" />
+    <title>Echo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+    <style>
+        @font-face { font-family: 'Telemarines'; src: url('telemarines.ttf') format('truetype'); }
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .movie-card {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .movie-card:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        .movie-info {
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        .movie-card:hover .movie-info {
+            opacity: 1;
+        }
+        .echo-font { font-family: 'Telemarines', sans-serif; }
+    </style>
+    <script>
+        function changeVideo(src, title, description) {
+            const videoElement = document.getElementById('featured-video');
+            const videoSource = document.getElementById('video-source');
+            const videoTitle = document.getElementById('video-title');
+            const videoDescription = document.getElementById('video-description');
+
+            videoSource.src = src;
+            videoElement.load();
+            videoTitle.textContent = title;
+            videoDescription.textContent = description;
+            videoElement.play(); // Ensure the video plays
+        }
+
+        window.addEventListener('load', () => {
+            const videoElement = document.getElementById('featured-video');
+            videoElement.play().catch(error => {
+                console.log('Autoplay failed:', error);
+            });
+        });
+    </script>
+</head>
+<body class="bg-gray-900 text-white">
+    <header class="bg-gray-800 p-4 flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+            <h1 class="text-2xl font-bold"><span class="echo-font">e</span>cho</h1>
+        </div>
+        <nav class="space-x-4">
+            <a class="hover:text-gray-400" href="https://buoya42.github.io/Echo/home">Home</a>
+        </nav>
+    </header>
+    <main class="p-4">
+        <section class="mb-8">
+            <div class="relative">
+                <video autoplay>
+                    <source src="https://cdn.glitch.global/439ea1f6-6f72-484a-9bdd-6e13fd0a19f1/Echo.mp4?v=1736285810339" type="video/mp4"/>
+                    Your browser does not support the video tag.
+                </video>
+                <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+                    <a href="https://buoya42.github.io/Echo/home" style="text-align: center; color: black; border: 1px solid white; padding: 10px; background-color: white; text-decoration: none; border-radius: 5px;">Let's start!</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-gray-800 p-4 mt-8">
+        <div class="flex justify-between items-center">
+            <p>This is an open-source project.</p>
+        </div>
+    </footer>
+</body>
+</html>

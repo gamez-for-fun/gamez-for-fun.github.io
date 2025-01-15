@@ -23,6 +23,7 @@ For example:
 <summary><strong>Famous Games</strong></summary>
 <ul>
   <li><a href="https://buoya42.github.io/famous-games/fnf">FNF</a></li>
+  <li><a href="https://buoya42.github.io/famous-games/worldbox">WorldBox</a></li>
   <li><a href="https://buoya42.github.io/famous-games/bitlife">BitLife</a></li>
   <li><a href="https://buoya42.github.io/famous-games/cookie-clicker">Cookie Clicker</a></li>
   <li><a href="https://buoya42.github.io/famous-games/isaac">The Binding of Isaac: Wrath of the Lamb</a></li>

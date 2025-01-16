@@ -22,7 +22,8 @@ For example:
 <details>
 <summary><strong>Famous Games</strong></summary>
 <ul>
-  <li><a href="https://buoya42.github.io/famous-games/fnf">FNF</a></li>
+  <li><a href="https://buoya42.github.io/famous-games/fnaf/1">FNaF 1</a></li>
+  <li><a href="https://buoya42.github.io/famous-games/fnaf/2">FNaF 2</a></li>
   <li><a href="https://buoya42.github.io/famous-games/worldbox">WorldBox</a></li>
   <li><a href="https://buoya42.github.io/famous-games/bitlife">BitLife</a></li>
   <li><a href="https://buoya42.github.io/famous-games/cookie-clicker">Cookie Clicker</a></li>

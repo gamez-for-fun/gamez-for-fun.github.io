@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script>
-    $(function() {
-        $('#bookmarkme').click(function(e) {
-            e.preventDefault(); // Prevent the default action of the link
-            alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
-        });
+        $(function() {
+            $('#bookmarkme').click(function(e) {
+                e.preventDefault(); // Prevent the default action of the link
+                alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+            });
 
-        // Date-checking script for Halloween, Christmas, and New Year
-        var today = new Date();
-        var month = today.getMonth() + 1; // Months are zero-based
-        var day = today.getDate();
+            // Date-checking script for Halloween, Christmas, and New Year
+            var today = new Date();
+            var month = today.getMonth() + 1; // Months are zero-based
+            var day = today.getDate();
 
-        // Apply different styles based on the date
-        if (month === 10 && day >= 3 && day <= 31) {
-            $('head').append(`
+            // Apply different styles based on the date
+            if (month === 10 && day >= 3 && day <= 31) {
+                $('head').append(`
                 <style>
                     h1, h2 {
                         text-align: center;
@@ -48,10 +49,13 @@
                     }
                     @font-face { font-family: 'Telemarines'; src: url('https://buoya42.github.io/Echo/telemarines.ttf') format('truetype'); }
                     .echo-font { font-family: 'Telemarines', sans-serif; }
+                    #counter {
+            font-size: 1.5em;
+        }
                 </style>
             `);
-        } else if (month === 12 && day >= 3 && day <= 26) {
-            $('head').append(`
+            } else if (month === 12 && day >= 3 && day <= 26) {
+                $('head').append(`
                 <style>
                     h1, h2 {
                         text-align: center;
@@ -83,8 +87,8 @@
                     .echo-font { font-family: 'Telemarines', sans-serif; }
                 </style>
             `);
-        } else if ((month === 12 && day >= 30) || (month === 1 && day <= 10)) {
-            $('head').append(`
+            } else if ((month === 12 && day >= 30) || (month === 1 && day <= 10)) {
+                $('head').append(`
                 <style>
                     h1, h2 {
                         text-align: center;
@@ -118,8 +122,8 @@
                     .echo-font { font-family: 'Telemarines', sans-serif; }
                 </style>
             `);
-        } else {
-            $('head').append(`
+            } else {
+                $('head').append(`
                 <style>
                     h1, h2 {
                         text-align: center;
@@ -151,11 +155,12 @@
                     .echo-font { font-family: 'Telemarines', sans-serif; }
                 </style>
             `);
-        }
-    });
+            }
+        });
     </script>
     <title>buoya42.github.io</title>
 </head>
+
 <body>
     <h1>buoya42.github.io</h1>
     <h2>Welcome to my website!</h2>
@@ -256,23 +261,24 @@
 
     <div class="footer">
         <img src="https://avatars.githubusercontent.com/buoya42" width="60px" height="60px" style="border-radius: 100%;" />
-      <p>Visitor Count: <span id="visitor-count">0</span></p>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Retrieve the current count from localStorage
-            let count = localStorage.getItem('visitorCount') || 0;
-            
-            // Increment the count
-            count++;
-            
-            // Store the updated count back to localStorage
-            localStorage.setItem('visitorCount', count);
-            
-            // Update the HTML to display the new count
-            document.getElementById('visitor-count').innerText = count;
-        });
-    </script>
+        <p>Visitor Count: <span id="visitor-count">0</span></p>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Retrieve the current count from localStorage
+                let count = localStorage.getItem('visitorCount') || 0;
+
+                // Increment the count
+                count++;
+
+                // Store the updated count back to localStorage
+                localStorage.setItem('visitorCount', count);
+
+                // Update the HTML to display the new count
+                document.getElementById('visitor-count').innerText = count;
+            });
+        </script>
         <h5>Have you got any issue? <a href="https://forms.gle/yKoSAmcGmJfGCedY6" target="_blank">Send me your feedback</a> | <a id="bookmarkme" href="#" rel="sidebar" title="bookmark this page">Bookmark This Page</a></h5>
     </div>
 </body>
+
 </html>

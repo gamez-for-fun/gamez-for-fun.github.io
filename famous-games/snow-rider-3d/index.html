@@ -1,0 +1,20 @@
+<link rel="icon" href="https://buoya42.github.io/famous-games/rooftop-snipers/logo.png" sizes="32x32">
+<title>Google</title>
+
+<link rel="stylesheet" href="https://eggy-car.github.io/gamefinalfour/snow-rider-3d/TemplateData/style.css">
+<script src="https://eggy-car.github.io/gamefinalfour/snow-rider-3d/TemplateData/UnityProgress.js"></script>
+<script src="https://eggy-car.github.io/gamefinalfour/snow-rider-3d/Build/UnityLoader.js"></script>
+<script>
+    var gameInstance = UnityLoader.instantiate("gameContainer", "https://eggy-car.github.io/gamefinalfour/snow-rider-3d/Build/SnowRider3D-gd-1.json", {
+        onProgress: UnityProgress,
+        Module: {
+            onRuntimeInitialized: function() {
+                UnityProgress(gameInstance, "complete")
+            }
+        }
+    });
+</script>
+<div class="webgl-content">
+    <div id="gameContainer" style="width: 100%; height: 100%; margin: auto"></div>
+</div>
+<script src="https://tbg95.github.io/js/crawl.js"></script>

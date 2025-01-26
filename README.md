@@ -46,18 +46,14 @@ For example:
   <li><a href="https://buoya42.github.io/famous-games/rooftop-snipers">Rooftop Snipers</a></li>
   <li><a href="https://buoya42.github.io/famous-games/terraria">Terraria</a></li>
   <li><a href="https://buoya42.github.io/famous-games/among-us">Among Us</a></li>
-</ul>
-</details>
-
-<details>
-<summary><strong>Pokemon</strong></summary>
+  <details>
+  <summary><strong>Pokemon</strong></summary>
 <ul>
   <li><a href="https://buoya42.github.io/famous-games/pokemon/1">Part 1</a></li>
   <li><a href="https://buoya42.github.io/famous-games/pokemon/2">Part 2</a></li>
 </ul>
 </details>
-
-<details>
+  <details>
 <summary><strong>Papa's</strong></summary>
 <ul>
   <li><a href="https://buoya42.github.io/famous-games/papas/bakeria">Bakeria</a></li>
@@ -72,6 +68,9 @@ For example:
   <li><a href="https://buoya42.github.io/famous-games/papas/sushiria">Sushiria</a></li>
   <li><a href="https://buoya42.github.io/famous-games/papas/tacomia">Tacomia</a></li>
   <li><a href="https://buoya42.github.io/famous-games/papas/wingeria">Wingeria</a></li>
+</ul>
+</details>
+  
 </ul>
 </details>
 

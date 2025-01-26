@@ -5,11 +5,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script>
         $(function() {
-            $('#bookmarkme').click(function(e) {
-                e.preventDefault(); // Prevent the default action of the link
-                alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
-            });
-
             // Date-checking script for Halloween, Christmas, and New Year
             var today = new Date();
             var month = today.getMonth() + 1; // Months are zero-based
@@ -49,10 +44,6 @@
                     }
                     @font-face { font-family: 'Telemarines'; src: url('https://buoya42.github.io/Echo/telemarines.ttf') format('truetype'); }
                     .echo-font { font-family: 'Telemarines', sans-serif; }
-                    #time {
-                       font-size: 1.5em;
-                       margin-top: 20px;
-                    }
                 </style>
             `);
             } else if (month === 12 && day >= 3 && day <= 26) {
@@ -261,35 +252,55 @@
     </details>
 
     <div class="footer">
-<style>
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-  #colon {
-    animation: blink 1s step-start infinite;
-  }
-</style>
+  <div class="footer">
+  <style>
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    #colon {
+      animation: blink 1s step-start infinite;
+    }
+    #time {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
 
-<script>
-  function updateTime() {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    document.getElementById('hours').textContent = hours;
-    document.getElementById('minutes').textContent = minutes;
-  }
+  <img src="https://avatars.githubusercontent.com/buoya42" width="60px" height="60px" style="border-radius: 100%;" />
+  <p id="time">
+    <span id="hours"></span><span id="colon">:</span><span id="minutes"></span>
+  </p>
+  <h5>Have you got any issue? <a href="https://forms.gle/yKoSAmcGmJfGCedY6" target="_blank">Send me your feedback</a> | <a id="bookmarkme" href="#" rel="sidebar" title="Bookmark this page">Bookmark This Page</a></h5>
 
-  updateTime();
-  setInterval(updateTime, 60000);
-</script>
+  <script>
+    function updateTime() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+    }
 
-        <img src="https://avatars.githubusercontent.com/buoya42" width="60px" height="60px" style="border-radius: 100%;" />
-                <p>
-  <span id="hours"></span><span id="colon">:</span><span id="minutes"></span>
-</p>
-        <h5>Have you got any issue? <a href="https://forms.gle/yKoSAmcGmJfGCedY6" target="_blank">Send me your feedback</a> | <a id="bookmarkme" href="#" rel="sidebar" title="bookmark this page">Bookmark This Page</a></h5>
-    </div>
+    // Call updateTime immediately and then every second
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    // Bookmark functionality
+    document.getElementById('bookmarkme').addEventListener('click', function(e) {
+      e.preventDefault();
+      alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+    });
+  </script>
+</div>
+
+
+  <img src="https://avatars.githubusercontent.com/buoya42" width="60px" height="60px" style="border-radius: 100%;" />
+  <p id="time">
+    <span id="hours"></span><span id="colon">:</span><span id="minutes"></span>
+  </p>
+  <h5>Have you got any issue? <a href="https://forms.gle/yKoSAmcGmJfGCedY6" target="_blank">Send me your feedback</a> | <a id="bookmarkme" href="#" rel="sidebar" title="bookmark this page">Bookmark This Page</a></h5>
+</div>
 </body>
 
 </html>

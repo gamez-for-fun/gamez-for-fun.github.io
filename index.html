@@ -49,9 +49,10 @@
                     }
                     @font-face { font-family: 'Telemarines'; src: url('https://buoya42.github.io/Echo/telemarines.ttf') format('truetype'); }
                     .echo-font { font-family: 'Telemarines', sans-serif; }
-                    #counter {
-            font-size: 1.5em;
-        }
+                    #time {
+                       font-size: 1.5em;
+                       margin-top: 20px;
+                    }
                 </style>
             `);
             } else if (month === 12 && day >= 3 && day <= 26) {
@@ -260,23 +261,33 @@
     </details>
 
     <div class="footer">
+<style>
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  #colon {
+    animation: blink 1s step-start infinite;
+  }
+</style>
+
+<script>
+  function updateTime() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    document.getElementById('hours').textContent = hours;
+    document.getElementById('minutes').textContent = minutes;
+  }
+
+  updateTime();
+  setInterval(updateTime, 60000);
+</script>
+
         <img src="https://avatars.githubusercontent.com/buoya42" width="60px" height="60px" style="border-radius: 100%;" />
-        <p>Visitor Count: <span id="visitor-count">0</span></p>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                // Retrieve the current count from localStorage
-                let count = localStorage.getItem('visitorCount') || 0;
-
-                // Increment the count
-                count++;
-
-                // Store the updated count back to localStorage
-                localStorage.setItem('visitorCount', count);
-
-                // Update the HTML to display the new count
-                document.getElementById('visitor-count').innerText = count;
-            });
-        </script>
+                <p>
+  <span id="hours"></span><span id="colon">:</span><span id="minutes"></span>
+</p>
         <h5>Have you got any issue? <a href="https://forms.gle/yKoSAmcGmJfGCedY6" target="_blank">Send me your feedback</a> | <a id="bookmarkme" href="#" rel="sidebar" title="bookmark this page">Bookmark This Page</a></h5>
     </div>
 </body>

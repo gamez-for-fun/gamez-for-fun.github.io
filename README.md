@@ -23,6 +23,7 @@ For example:
 <summary><strong>Famous Games</strong></summary>
 <ul>
   <li><a href="https://buoya42.github.io/famous-games/xtreme-good-guys-vs-bad">Xtreme Good guys VS. Bad</a></li>
+  <li><a href="https://buoya42.github.io/famous-games/gd">Geometry Dash</a></li>
   <li><a href="https://buoya42.github.io/famous-games/8-ball-pool">8 Ball pool</a></li>
   <li><a href="https://buoya42.github.io/famous-games/snow-rider-3d">Snow Rider 3D</a></li>
   <li><a href="https://buoya42.github.io/famous-games/fnaf/1">FNaF 1</a></li>

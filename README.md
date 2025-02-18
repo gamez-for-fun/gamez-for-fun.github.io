@@ -3,7 +3,7 @@
 # buoya42.github.io
 
 ## Welcome to my website!
-### [Echo](https://buoya42.github.io/Echo) - A movie streaming platform.
+<!-- ### [Echo](https://buoya42.github.io/Echo) - A movie streaming platform. -->
 ### Here you can play some typical games.
 
 For example:

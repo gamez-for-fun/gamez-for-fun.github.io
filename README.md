@@ -102,6 +102,7 @@ For example:
 <details>
 <summary><strong>Tools</strong></summary>
 <ul>
+  <li><a href="https://buoya42.github.io/tools/webbrowser">Web Browser</a></li>
   <li><a href="https://buoya42.github.io/tools/webcam">Webcam</a></li>
   <li><a href="https://buoya42.github.io/tools/screenshot">Screenshot</a></li>
   <li><a href="https://buoya42.github.io/tools/screen-recorder">Screen recorder</a></li>

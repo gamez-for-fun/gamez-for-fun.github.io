@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPTV</title>
+    <style>
+        body {
+            margin: 0; /* Remove default margin */
+            overflow: hidden; /* Prevent scrolling */
+            background-color: #000; /* Black background for better viewing */
+        }
+        #player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw; /* Full width */
+            height: 100vh; /* Full height */
+        }
+        .channel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none; /* Hide all iframes initially */
+        }
+        .active {
+            display: block; /* Show the active iframe */
+        }
+        #channelSelector {
+            position: absolute;
+            top: 10px;
+            right: 10px; /* Align dropdown to the right */
+            z-index: 1000; /* Ensure dropdown is above the iframe */
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;"> <!-- Disable right-click context menu -->
+
+    <select id="channelSelector">
+        <option value="0">ESPN Deportes (USA)</option>
+        <option value="1">DAZN 1 (Spain)</option>
+        <option value="2">DAZN 2 (Spain)</option>
+        <option value="3">Movistar Deportes (Spain)</option>
+        <option value="4">Bein Sports 1 (Arab)</option>
+        <option value="5">Sky Sports Football (UK)</option>
+    </select>
+
+    <div id="player">
+        <iframe class="channel active" allow='encrypted-media' src='https://topembed.pw/channel/ESPNDeportes[USA]'></iframe>
+        <iframe class="channel" allow='encrypted-media' src='https://topembed.pw/channel/DAZN1[Spain]'></iframe>
+        <iframe class="channel" allow='encrypted-media' src='https://topembed.pw/channel/DAZN2[Spain]'></iframe>
+        <iframe class="channel" allow='encrypted-media' src='https://topembed.pw/channel/MovistarDeportes[Spain]'></iframe>
+        <iframe class="channel" allow='encrypted-media' src='https://topembed.pw/channel/BeinSports1[Arab]'></iframe>
+        <iframe class="channel" allow='encrypted-media' src='https://topembed.pw/channel/SkySportsFootball[UK]'></iframe>
+    </div>
+
+    <script>
+        const channels = document.querySelectorAll('.channel');
+        const channelSelector = document.getElementById('channelSelector');
+        let currentChannelIndex = 0;
+
+        function updateChannel() {
+            channels.forEach((channel, index) => {
+                channel.classList.remove('active'); // Hide all channels
+                if (index === currentChannelIndex) {
+                    channel.classList.add('active'); // Show the current channel
+                }
+            });
+        }
+
+        // Update channel when dropdown selection changes
+        channelSelector.addEventListener('change', (event) => {
+            currentChannelIndex = parseInt(event.target.value); // Get the selected index
+            updateChannel();
+        });
+
+        // Set the initial channel
+        updateChannel();
+    </script>
+
+</body>
+</html>

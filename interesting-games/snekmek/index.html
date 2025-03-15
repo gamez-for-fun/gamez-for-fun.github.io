@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Docs</title>
+    <link type="image/x-icon" rel="shortcut icon" href="https://www.gstatic.com/images/branding/product/1x/docs_2020q4_48dp.png" />
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #2000b2; /* #2000b2 background */
+        }
+        iframe {
+            border: none; /* Removes border from the iframe */
+        }
+    </style>
+</head>
+<body>
+    <iframe id="game-frame" src="https://rowan.games/assets/html5_exports/snekmek2023/" width="512" height="512"></iframe>
+
+    <script>
+        document.body.addEventListener('click', function() {
+            const iframe = document.getElementById('game-frame');
+            iframe.focus(); // Focus the iframe when clicking anywhere
+        });
+    </script>
+</body>
+</html>

@@ -82,6 +82,7 @@ For example:
 <details>
 <summary><strong>Interesting Games</strong></summary>
 <ul>
+  <li><a href="https://buoya42.github.io/interesting-games/snekmek">SnekMek</a></li>
   <li><a href="https://buoya42.github.io/interesting-games/fnaw">FNaW (Five Nights at Winston's)</a></li>
   <li><a href="https://buoya42.github.io/interesting-games/bloxors">Bloxors</a></li>
   <li><a href="https://buoya42.github.io/interesting-games/dragon-maker">Dragon Maker</a></li>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShadowHand Font</title>
+    <style>
+        @font-face {
+            font-family: 'ShadowHand';
+            src: url('https://buoya42.github.io/assets/ShadowHand.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'ShadowHand', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+
+        .output {
+            font-size: 64px;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            text-align: center;
+            padding: 10px 20px; /* Add padding to prevent clipping */
+            margin-left: 20px; /* Add space before text starts */
+        }
+    </style>
+</head>
+<body>
+    <div id="output" class="output"></div>
+
+    <script>
+        const phrases = ["ABCDE", "abcde", "12345", "Zen"];
+        const output = document.getElementById("output");
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let erasing = false;
+
+        function typeAnimation() {
+            if (!erasing) {
+                if (charIndex < phrases[phraseIndex].length) {
+                    output.textContent += phrases[phraseIndex][charIndex];
+                    charIndex++;
+                    setTimeout(typeAnimation, 200); // Typing speed
+                } else {
+                    setTimeout(() => {
+                        erasing = true;
+                        typeAnimation();
+                    }, 1500); // Pause for 3 seconds after writing
+                }
+            } else {
+                if (charIndex > 0) {
+                    output.textContent = output.textContent.slice(0, -1);
+                    charIndex--;
+                    setTimeout(typeAnimation, 100); // Erasing speed
+                } else {
+                    erasing = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length; // Move to the next phrase
+                    setTimeout(typeAnimation, 200); // Start typing the next phrase
+                }
+            }
+        }
+
+        typeAnimation();
+    </script>
+</body>
+</html>

@@ -111,4 +111,4 @@ For example:
 </ul>
 </details>
 
-<h5>Have you got any issue? <a href="https://forms.gle/yKoSAmcGmJfGCedY6">Send us your feedback</a></h5>
+<h5>Have you got any issue? <a href="https://form.typeform.com/to/IA2WetWG">Send us your feedback</a></h5>

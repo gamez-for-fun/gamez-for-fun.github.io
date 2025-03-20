@@ -1,2 +1,76 @@
 
-<meta http-equiv="refresh" content="1;url=https://gamez-for-fun.github.io/">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="1;url=https://gamez-for-fun.github.io/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamez for Fun</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.5s ease;
+        }
+        h1 {
+            color: #01579b;
+        }
+        .game-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .game {
+            background-color: #ffffff;
+            border: 1px solid #0288d1;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 15px;
+            width: 200px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .game:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .game img {
+            max-width: 100%;
+            border-bottom: 1px solid #0288d1;
+            transition: opacity 0.3s ease;
+        }
+        .game img:hover {
+            opacity: 0.8;
+        }
+        .game-title {
+            font-size: 1.2em;
+            color: #0288d1;
+            margin: 10px 0;
+        }
+        .game-description {
+            font-size: 0.9em;
+            color: #666;
+        }
+        a { text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Gamez for Fun</h1>
+    <div class="game-container">
+        <div class="game">
+            <a href="https://gamez-for-fun.github.io/windowsxp/VirtualXP.htm">
+                <div class="game-title">Windows XP</div>
+                <div class="game-description">Windows XP Emulator.</div>
+            </a>
+    </div>
+        <div class="game">
+            <a href="https://gamez-for-fun.github.io/emulatrix/Emulatrix.htm">
+                <div class="game-title">Emulatrix</div>
+                <div class="game-description">Console Emulator.</div>
+            </a>
+        </div>
+</body>
+</html>

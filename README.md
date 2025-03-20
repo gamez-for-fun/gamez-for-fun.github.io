@@ -3,7 +3,7 @@
 # buoya42.github.io
 
 ## Welcome to my website!
-### [IPTV](https://buoya42.github.io/Echo) - The way to see TV.
+### [IPTV](https://buoya42.github.io/Echo) - The way to see TV | Check out my [secondary website](https://buoya42.github.io/gamez-for-fun/)
 ### Here you can play some typical games.
 
 For example:

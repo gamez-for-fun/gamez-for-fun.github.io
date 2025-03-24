@@ -1,0 +1,99 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Drive - Google Drive</title>
+  <link type="image/png" rel="shortcut icon" href="https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png" />
+  <style>
+    body {background-color: #121212; color: #e0e0e0; font-family: 'Comic Sans MS', cursive, sans-serif; text-align: center; padding: 50px;}
+    h2 {font-size: 2em; color: #e0e0e0; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);}
+    #progressBar {width: 100%; background-color: #333; border-radius: 5px; margin-top: 30px; height: 30px; box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.3);}
+    #progressBar div {width: 0%; height: 100%; background-color: #4caf50; border-radius: 5px; text-align: center; line-height: 30px; font-weight: bold; color: #fff;}
+    .footer {position: fixed; bottom: 20px; width: 100%; text-align: center; color: #e0e0e0;}
+  </style>
+</head>
+<body>
+  <h2>Downloading Update...</h2>
+  <div id="progressBar"><div>0%</div></div>
+  <script>
+    const DB_NAME = 'loaderDB', DB_VERSION = 1, STORE_NAME = 'files', URL_TO_LOAD = 'https://buoya42.github.io/minecraft/1.12/js.bin';
+    function openDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+        request.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) db.createObjectStore(STORE_NAME, { keyPath: 'url' });
+        };
+        request.onsuccess = (e) => resolve(e.target.result);
+        request.onerror = (e) => reject(e.target.error);
+      });
+    }
+    function getFile(db, url) {
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction([STORE_NAME], 'readonly');
+        const store = transaction.objectStore(STORE_NAME);
+        const request = store.get(url);
+        request.onsuccess = (e) => resolve(e.target.result);
+        request.onerror = (e) => reject(e.target.error);
+      });
+    }
+    function saveFile(db, file) {
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction([STORE_NAME], 'readwrite');
+        const store = transaction.objectStore(STORE_NAME);
+        const request = store.put(file);
+        request.onsuccess = () => resolve();
+        request.onerror = (e) => reject(e.target.error);
+      });
+    }
+    function updateProgress(percent) {
+      document.querySelector('#progressBar div').style.width = percent + '%';
+      document.querySelector('#progressBar div').textContent = percent + '%';
+    }
+    function loadFile(url, cachedETag) {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        if (cachedETag) xhr.setRequestHeader('If-None-Match', cachedETag);
+        xhr.responseType = 'text';
+        xhr.onprogress = (e) => {
+          if (e.lengthComputable) updateProgress(Math.round((e.loaded / e.total) * 100));
+        };
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 304) resolve({ fromCache: true });
+            else if (xhr.status >= 200 && xhr.status < 300) {
+              const etag = xhr.getResponseHeader('ETag');
+              resolve({ data: xhr.responseText, etag });
+            } else reject('Error loading file: ' + xhr.status);
+          }
+        };
+        xhr.onerror = () => reject('XHR error');
+        xhr.send();
+      });
+    }
+    async function init() {
+      try {
+        const db = await openDB();
+        let cached = await getFile(db, URL_TO_LOAD);
+        const cachedETag = cached ? cached.etag : null;
+        const result = await loadFile(URL_TO_LOAD, cachedETag);
+        let fileContent;
+        if (result.fromCache && cached) fileContent = cached.content;
+        else {
+          fileContent = result.data;
+          await saveFile(db, { url: URL_TO_LOAD, content: fileContent, etag: result.etag });
+        }
+        document.open();
+        document.write(fileContent);
+        document.close();
+      } catch (e) {console.error(e);}
+    }
+    init();
+  </script>
+  <div class="footer">Please wait while we download the update...</div>
+</body>
+</html>

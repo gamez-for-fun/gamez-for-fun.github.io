@@ -24,6 +24,7 @@ For example:
 <summary><strong>Famous Games</strong></summary>
 <ul>
   <li><a href="https://buoya42.github.io/famous-games/xtreme-good-guys-vs-bad">Xtreme Good guys VS. Bad</a></li>
+  <li><a href="https://buoya42.github.io/famous-games/x-trench-run">X-Trench Run</a></li>
   <li><a href="https://buoya42.github.io/famous-games/bad-time-simulator/index.html">Bad Time Simulator (Sans Fight)</a></li>
   <li><a href="https://buoya42.github.io/famous-games/ice-dodo">Ice Dodo</a></li>
   <li><a href="https://buoya42.github.io/famous-games/tunnel-rush-mania">Tunnel Rush Mania</a></li>

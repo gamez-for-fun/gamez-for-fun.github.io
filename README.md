@@ -1,9 +1,9 @@
 [![StandWithPalestine](https://github.com/buoya42/buoya42.github.io/blob/main/StandWithPalestine.svg)](https://www.islamic-relief.org.uk/giving/appeals/palestine/)
 
-# buoya42.github.io
+# gamez-for-fun.github.io
 
 ## Welcome to my website!
-### [IPTV](https://buoya42.github.io/Echo) - The way to see TV | Check out my [secondary website](https://buoya42.github.io/gamez-for-fun/)
+### [IPTV](https://gamez-for-fun.github.io/Echo) - The way to see TV
 ### Here you can play some typical games.
 
 For example:

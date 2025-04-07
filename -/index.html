@@ -5,114 +5,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iRiS for Chromebook</title>
-	<link rel="icon" href="logo.png" />
+    <link rel="icon" href="logo.png" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <style>
-                    h1, h2 {
-                        text-align: center;
-                        color: white; /* White for headers */
-                    }
-                    .footer {
-                        position: fixed;
-                        left: 0;
-                        bottom: 0;
-                        width: 100%;
-                        text-align: center;
-                        color: white; /* White text for footer */
-                    }
-                    html, body {
-                        background: linear-gradient(to bottom, #006064, #004d40);
-                        height: 100vh;
-                        margin: 0;
-                        background-repeat: no-repeat;
-                        background-attachment: fixed;
-                        color: white; /* White text for contrast */
-                        padding: 0; /* Remove padding */
-                    }
-                    a {
-                        color: white; /* White for links */
-                    }
-                    a:hover {
-                        color: white;
-                        opacity: 0.6;
-                    }
-                    @font-face { font-family: 'Telemarines'; src: url('Echo/telemarines.ttf') format('truetype'); }
-                    .echo-font { font-family: 'Telemarines', sans-serif; }
-                    .marquee-container {
-                        background-color: #006064; /* Match the body background color */
-                        padding: 10px; /* Add some padding */
-                        text-align: center; /* Center the text */
-                    }
-                    hr {
-                        border: 0;
-                        height: 1px;
-                        background: white; /* Color of the horizontal line */
-                        margin: 10px 0; /* Space around the line */
-                    }
-                    .content {
-                        margin: 20px; /* Add margin around the content */
-                    }
-                </style>
-    <style>
-        /* Popup styles */
-        .popup {
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            background-color: black; /* Always black background */
-            color: white; /* White text for contrast */
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            z-index: 1000; /* Ensure the popup is above other content */
-            display: none; /* Hidden by default */
-            opacity: 0; /* Start hidden */
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
+    h1, h2, h3 {
+        text-align: center;
+        color: white; /* White for headers */
+    }
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        color: white; /* White for footer text */
+    }
+    html, body {
+        background: linear-gradient(50deg, #4B0082, #1C1C5B, #2E0C38); /* Gradient with Indigo, Midnight Navy, and Deep Mauve */
+        background-size: 400% 400%; /* Enable smooth animation */
+        animation: gradientAnimation 10s ease infinite; /* Apply gradient animation */
+        text-align: left;
+        font-family: Arial, sans-serif;
+        color: white; /* White for primary text */
+        margin: 0;
+        padding: 20px;
+        height: 100vh;
+        overflow: auto;
+    }
 
-        .popup.show {
-            opacity: 1; /* Fully visible */
-            transform: translate(-50%, -50%) scale(1); /* Normal size */
+    @keyframes gradientAnimation {
+        0% {
+            background-position: 0% 50%;
         }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
 
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999; /* Ensure the overlay is below the popup */
-            display: none; /* Hidden by default */
-        }
+    a {
+        color: white; /* White for links */
+    }
+    a:hover {
+        color: #F5F5F5; /* Very light version of white (almost pure) */
+        opacity: 0.9; /* Slight transparency for a softer effect */
+    }
+    @font-face { font-family: 'Telemarines'; src: url('Echo/telemarines.ttf') format('truetype'); }
+    .echo-font { font-family: 'Telemarines', sans-serif; }
+    .marquee-container {
+        background-color: #2E0C38; /* Deep Mauve for subtle banner */
+        padding: 10px;
+        text-align: center;
+    }
+    hr {
+        border: 0;
+        height: 1px;
+        background: white; /* White for horizontal line */
+        margin: 10px 0;
+    }
+    .content {
+        margin: 20px;
+    }
 
-        .close-button {
-            display: block;
-            margin: 20px auto 0; /* Center the button */
-            text-align: center;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            text-decoration: none; /* Remove underline */
-        }
+    /* Popup styles */
+    .popup {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: black; /* Maintain black background */
+        color: white; /* White for popup text */
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .popup.show {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8); /* Darker overlay for nighttime effect */
+        z-index: 999;
+        display: none;
+    }
+    .close-button {
+        display: block;
+        margin: 20px auto 0;
+        text-align: center;
+        color: white; /* White for button text */
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    .close-button:hover {
+        opacity: 0.8; /* Slightly fade on hover */
+    }
+</style>
 
-        .close-button:hover {
-            opacity: 0.8; /* Slightly fade on hover */
-        }
-    </style>
 </head>
 
 <body>
-    
-   <!-- <div class="/marquee-container">
-        <marquee behavior="scroll" direction="left">
-            <p style="/font-size: 20px;">New UI will be created <strong>soon</strong>...</p>
-        </marquee>
-    </div>
-
-    <hr> <!-- Horizontal line -->
     
     <div class="content">
         <h1>gamez-for-fun.github.io</h1>
@@ -129,7 +133,6 @@
                 <li><a href="/minecraft/1.8/">1.8 (multiplayer only)</a></li>
                 <li><a href="/minecraft/1.8%20international/">1.8 International (multiplayer only)</a></li>
                 <li><a href="/minecraft/1.12/">1.12</a></li>
-            </ul>
         </details>
         <details>
             <summary><strong>Famous Games</strong></summary>
@@ -169,96 +172,100 @@
                 <li><a href="/famous-games/terraria">Terraria</a></li>
                 <li><a href="/famous-games/among-us">Among Us</a></li>
                 <details>
-                <summary>
-                    <strong>Pokemon</strong>
-                </summary>
-                <li><a href="/famous-games/pokemon/1">Part 1</a></li>
-                <li><a href="/famous-games/pokemon/2">Part 2</a></li>
+                    <summary>
+                        <strong>Pokemon</strong>
+                    </summary>
+                        <li><a href="/famous-games/pokemon/1">Part 1</a></li>
+                        <li><a href="/famous-games/pokemon/2">Part 2</a></li>
+                </details>
+                <details>
+                    <summary>
+                        <strong>Papa's</strong>
+                    </summary>
+                        <li><a href="/famous-games/papas/bakeria">Bakeria</a></li>
+                        <li><a href="/famous-games/papas/burgeria">Burgeria</a></li>
+                        <li><a href="/famous-games/papas/cheeseria">Cheeseria</a></li>
+                        <li><a href="/famous-games/papas/cupcakeria">Cupcakeria</a></li>
+                        <li><a href="/famous-games/papas/donuteria">Donuteria</a></li>
+                        <li><a href="/famous-games/papas/freezeria">Freezeria</a></li>
+                        <li><a href="/famous-games/papas/hotdoggeria">Hot Doggeria</a></li>
+                        <li><a href="/famous-games/papas/pastaria">Pastaria</a></li>
+                        <li><a href="/famous-games/papas/scooperia">Scooperia</a></li>
+                        <li><a href="/famous-games/papas/sushiria">Sushiria</a></li>
+                        <li><a href="/famous-games/papas/tacomia">Tacomia</a></li>
+                        <li><a href="/famous-games/papas/wingeria">Wingeria</a></li>
+                    
+                </details>
             </details>
             <details>
                 <summary>
-                    <strong>Papa's</strong>
+                    <strong>Interesting Games</strong>
                 </summary>
-                <li><a href="/famous-games/papas/bakeria">Bakeria</a></li>
-                <li><a href="/famous-games/papas/burgeria">Burgeria</a></li>
-                <li><a href="/famous-games/papas/cheeseria">Cheeseria</a></li>
-                <li><a href="/famous-games/papas/cupcakeria">Cupcakeria</a></li>
-                <li><a href="/famous-games/papas/donuteria">Donuteria</a></li>
-                <li><a href="/famous-games/papas/freezeria">Freezeria</a></li>
-                <li><a href="/famous-games/papas/hotdoggeria">Hot Doggeria</a></li>
-                <li><a href="/famous-games/papas/pastaria">Pastaria</a></li>
-                <li><a href="/famous-games/papas/scooperia">Scooperia</a></li>
-                <li><a href="/famous-games/papas/sushiria">Sushiria</a></li>
-                <li><a href="/famous-games/papas/tacomia">Tacomia</a></li>
-                <li><a href="/famous-games/papas/wingeria">Wingeria</a></li>
+                
+                    <li><a href="/interesting-games/snekmek">SnekMek</a></li>
+                    <li><a href="/interesting-games/fnaw">FNaW (Five Nights at Winston's)</a></li>
+                    <li><a href="/interesting-games/bloxors">Bloxors</a></li>
+                    <li><a href="/interesting-games/dragon-maker">Dragon Maker</a></li>
+                    <li><a href="/interesting-games/fairy-tail-vs-one-piece">Fairy Tail VS. One Piece</a></li>
+                
             </details>
-        </details>
-        <details>
-            <summary>
-                <strong>Interesting Games</strong>
-            </summary>
-            <li><a href="/interesting-games/snekmek">SnekMek</a></li>
-            <li><a href="/interesting-games/fnaw">FNaW (Five Nights at Winston's)</a></li>
-            <li><a href="/interesting-games/bloxors">Bloxors</a></li>
-            <li><a href="/interesting-games/dragon-maker">Dragon Maker</a></li>
-            <li><a href="/interesting-games/fairy-tail-vs-one-piece">Fairy Tail VS. One Piece</a></li>
-        </details>
-        <details>
-            <summary>
-                <strong>Browser Hidden Games</strong>
-            </summary>
-            <li><a href="/browser-hidden-games/surf">Microsoft Edge - Surf/Ski</a></li>
-            <li><a href="/browser-hidden-games/t-rex">Google Chrome - T-Rex</a></li>
-        </details>
+            <details>
+                <summary>
+                    <strong>Browser Hidden Games</strong>
+                </summary>
+                
+                    <li><a href="/browser-hidden-games/surf">Microsoft Edge - Surf/Ski</a></li>
+                    <li><a href="/browser-hidden-games/t-rex">Google Chrome - T-Rex</a></li>
+                
+            </details>
 
-        <h3>And you can use some interesting tools.</h3>
-        <details>
-            <summary>
-                <strong>Tools</strong>
-            </summary>
-            <li><a href="/tools/webbrowser">Web Browser</a></li>
-            <li><a href="/tools/webcam">Webcam</a></li>
-            <li><a href="/tools/screenshot">Screenshot</a></li>
-            <li><a href="/tools/screen-recorder">Screen recorder</a></li>
-            <li><a href="/tools/music-player">Music player</a></li>
-        </details>
+            <h3>And you can use some interesting tools.</h3>
+            <details>
+                <summary>
+                    <strong>Tools</strong>
+                </summary>
+                
+                    <li><a href="/tools/webbrowser">Web Browser</a></li>
+                    <li><a href="/tools/webcam">Webcam</a></li>
+                    <li><a href="/tools/screenshot">Screenshot</a></li>
+                    <li><a href="/tools/screen-recorder">Screen recorder</a></li>
+                    <li><a href="/tools/music-player">Music player</a></li>
+                
+            </details>
+        </div>
 
-        <div class="footer" style="margin: 10px;">
+        <div class="footer">
             <p id="time"></p>
             <a onclick="openFeedbackPopup()" href="#">Share Feedback</a>
         </div>
-    </div>
 
-    <div class="overlay" onclick="closeFeedbackPopup()" style="display: none;"></div>
-    <div class="popup">
-        <div data-tf-live="01JPJB94N71MXQCCSN4DC2ERJZ"></div>
-        <script src="//embed.typeform.com/next/embed.js"></script>
-        <a class="close-button" onclick="closeFeedbackPopup()" href="#">Close</a>
-    </div>
+        <div class="overlay" onclick="closeFeedbackPopup()" style="display: none;"></div>
+        <div class="popup">
+            <div data-tf-live="01JPJB94N71MXQCCSN4DC2ERJZ"></div>
+            <script src="//embed.typeform.com/next/embed.js"></script>
+            <a class="close-button" onclick="closeFeedbackPopup()" href="#">Close</a>
+        </div>
 
-    <script>
-        function openFeedbackPopup() {
-            $('.overlay').fadeIn(300); // Fade in overlay
-            $('.popup').addClass('show').fadeIn(300); // Fade in popup
-        }
+        <script>
+            function openFeedbackPopup() {
+                $('.overlay').fadeIn(300);
+                $('.popup').addClass('show').fadeIn(300);
+            }
 
-        function closeFeedbackPopup() {
-            $('.overlay').fadeOut(300); // Fade out overlay
-            $('.popup').removeClass('show').fadeOut(300); // Fade out popup
-        }
+            function closeFeedbackPopup() {
+                $('.overlay').fadeOut(300);
+                $('.popup').removeClass('show').fadeOut(300);
+            }
 
-        // Time update function
-        function updateTime() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('time').textContent = hours + ':' + minutes;
-        }
+            function updateTime() {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                document.getElementById('time').textContent = hours + ':' + minutes;
+            }
 
-        // Call updateTime immediately and then every second
-        updateTime();
-        setInterval(updateTime, 1000);
-    </script>
-</body>
-
+            updateTime();
+            setInterval(updateTime, 1000);
+        </script>
+    </body>
 </html>

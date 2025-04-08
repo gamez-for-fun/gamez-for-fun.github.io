@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,159 +9,146 @@
     <link rel="icon" href="logo.png" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <style>
-        h1, h2 {
-            text-align: center;
-            color: white; /* White for headers */
-        }
-        h3 {
-            color: white;
-        }
-        .footer {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-            color: white; /* White for footer text */
-        }
-        html, body {
-            background: linear-gradient(50deg, #4B0082, #1C1C5B, #2E0C38); /* Gradient with Indigo, Midnight Navy, and Deep Mauve */
-            background-size: 400% 400%; /* Enable smooth animation */
-            animation: gradientAnimation 10s ease infinite; /* Apply gradient animation */
-            text-align: left;
-            font-family: Arial, sans-serif;
-            color: white; /* White for primary text */
-            margin: 0;
-            padding: 20px;
-            height: 100vh;
-            overflow: auto;
-        }
+    h1, h2 {
+        text-align: center;
+        color: white; /* White for headers */
+    }
+    h3 {
+        color: white;
+    }
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        color: white; /* White for footer text */
+    }
+    html, body {
+        background: linear-gradient(50deg, #4B0082, #1C1C5B, #2E0C38); /* Gradient with Indigo, Midnight Navy, and Deep Mauve */
+        background-size: 400% 400%; /* Enable smooth animation */
+        animation: gradientAnimation 10s ease infinite; /* Apply gradient animation */
+        text-align: left;
+        font-family: Arial, sans-serif;
+        color: white; /* White for primary text */
+        margin: 0;
+        padding: 20px;
+        height: 100vh;
+        overflow: auto;
+    }
 
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+    @keyframes gradientAnimation {
+        0% {
+            background-position: 0% 50%;
         }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
 
-        a {
-            color: white; /* White for links */
-        }
-        a:hover {
-            color: #F5F5F5; /* Very light version of white (almost pure) */
-            opacity: 0.9; /* Slight transparency for a softer effect */
-        }
-        @font-face { font-family: 'Telemarines'; src: url('Echo/telemarines.ttf') format('truetype'); }
-        .echo-font { font-family: 'Telemarines', sans-serif; }
-        .marquee-container {
-            background-color: #2E0C38; /* Deep Mauve for subtle banner */
-            padding: 10px;
-            text-align: center;
-        }
-        hr {
-            border: 0;
-            height: 1px;
-            background: white; /* White for horizontal line */
-            margin: 10px 0;
-        }
-        .content {
-            margin: 20px;
-            display: none; /* Hide content initially */
-        }
+    a {
+        color: white; /* White for links */
+    }
+    a:hover {
+        color: #F5F5F5; /* Very light version of white (almost pure) */
+        opacity: 0.9; /* Slight transparency for a softer effect */
+    }
+    @font-face { font-family: 'Telemarines'; src: url('Echo/telemarines.ttf') format('truetype'); }
+    .echo-font { font-family: 'Telemarines', sans-serif; }
+    .marquee-container {
+        background-color: #2E0C38; /* Deep Mauve for subtle banner */
+        padding: 10px;
+        text-align: center;
+    }
+    hr {
+        border: 0;
+        height: 1px;
+        background: white; /* White for horizontal line */
+        margin: 10px 0;
+    }
+    .content {
+        margin: 20px;
+        display: none; /* Hide content initially */
+    }
 
-        /* Loader styles */
-        .loader-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #1C1C5B; /* Same color as the website background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999; /* Ensure it is on top of everything */
-        }
-        .loader {
-            width: 40px;
-            height: 40px;
-            --c:no-repeat linear-gradient(#fff 0 0); /* Change loader color to white */
-            background: 
-                var(--c) 0    0,
-                var(--c) 0    100%, 
-                var(--c) 50%  0,  
-                var(--c) 50%  100%, 
-                var(--c) 100% 0, 
-                var(--c) 100% 100%;
-            background-size: 8px 50%;
-            animation: l9-0 2s infinite;
-            position: relative;
-            overflow: hidden;
-        }
-        .loader:before {
-            content: "";
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #fff; /* Change loader dot color to white */
-            top: calc(50% - 4px);
-            left: -8px;
-            animation: inherit;
-            animation-name: l9-1;
-        }
-        @keyframes l9-0 {
-            16.67% {background-size:8px 30%, 8px 30%, 8px 50%, 8px 50%, 8px 50%, 8px 50%}
-            33.33% {background-size:8px 30%, 8px 30%, 8px 30%, 8px 30%, 8px 50%, 8px 50%}
-            50%    {background-size:8px 30%, 8px 30%, 8px 30%, 8px 30%, 8px 50%, 8px 50%}
-            66.67% {background-size: 8px 50%, 8px 50%, 8px 30%, 8px 30%, 8px 50%, 8px 50%}
-            83.33% {background-size:8px 50%, 8px 50%, 8px 50%, 8px 50%, 8px 50%, 8px 50%}
-        }
-        @keyframes l9-1 {
-            20%     {left:0px}
-            40%,70% {left:calc(50% - 4px)}
-            80%,85% {left:8px;top:calc(50% - 4px)}
-            100%    {left:8px;top:-8px}
-        }
+    /* Loader styles */
+    .loader-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #1C1C5B; /* Same color as the website background */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999; /* Ensure it is on top of everything */
+    }
+    .loader {
+        --s: 60px; /* Decreased size by 15px */
+        --_d: calc(0.353 * var(--s));
+        width: calc(var(--s) + var(--_d));
+        aspect-ratio: 1;
+        display: grid;
+    }
+    .loader:before,
+    .loader:after {
+        content: "";
+        clip-path: polygon(var(--_d) 0, 100% 0, 100% calc(100% - var(--_d)), calc(100% - var(--_d)) 100%, 0 100%, 0 var(--_d));
+        background: conic-gradient(from -90deg at var(--s) var(--_d), #fff 135deg, #666 0 270deg, #aaa 0);
+        animation: l4 1.2s infinite;
+    }
+    .loader:before {
+        z-index: 1;
+        margin-bottom: calc(var(--_d) / -2 - 1px);
+    }
+    .loader:after {
+        margin-top: calc(var(--_d) / -2 - 1px);
+        animation-delay: 0.6s;
+    }
+    @keyframes l4 {
+        0% { transform: translate(0) }
+        16.67% { transform: translate(-10px) }
+        33.33% { transform: translate(10px) }
+        50%, 100% { transform: translate(0) }
+    }
 
-        /* Popup styles */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
-            display: none; /* Hidden by default */
-            z-index: 1000; /* Ensure it is above other content */
-        }
+    /* Popup styles */
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+        display: none; /* Hidden by default */
+        z-index: 1000; /* Ensure it is above other content */
+    }
 
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); /* Center the popup */
-            background: black; /* Background color for the popup */
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            display: none; /* Hidden by default */
-            z-index: 1001; /* Ensure it is above the overlay */
-        }
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* Center the popup */
+        background: black; /* Background color for the popup */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        display: none; /* Hidden by default */
+        z-index: 1001; /* Ensure it is above the overlay */
+    }
 
-        .close-button {
-            display: block;
-            margin-top: 10px;
-            text-align: center;
-            color: #333; /* Dark color for close button */
-            text-decoration: none;
-        }
-    </style>
+    .close-button {
+        display: block;
+        margin-top: 10px;
+        text-align: center;
+        color: #333; /* Dark color for close button */
+        text-decoration: none;
+    }
+</style>
 </head>
 
 <body>
@@ -316,7 +304,7 @@
                 $('.loader-overlay').fadeOut(500, function() {
                     $('.content').fadeIn(500);
                 });
-            }, 10000);
+            }, 5000);
         </script>
     </body>
 </html>

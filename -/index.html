@@ -8,119 +8,167 @@
     <link rel="icon" href="logo.png" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <style>
-    h1, h2 {
-        text-align: center;
-        color: white; /* White for headers */
-    }
+        h1, h2 {
+            text-align: center;
+            color: white; /* White for headers */
+        }
         h3 {
-        color: white;
+            color: white;
         }
-    .footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-        color: white; /* White for footer text */
-    }
-    html, body {
-        background: linear-gradient(50deg, #4B0082, #1C1C5B, #2E0C38); /* Gradient with Indigo, Midnight Navy, and Deep Mauve */
-        background-size: 400% 400%; /* Enable smooth animation */
-        animation: gradientAnimation 10s ease infinite; /* Apply gradient animation */
-        text-align: left;
-        font-family: Arial, sans-serif;
-        color: white; /* White for primary text */
-        margin: 0;
-        padding: 20px;
-        height: 100vh;
-        overflow: auto;
-    }
-
-    @keyframes gradientAnimation {
-        0% {
-            background-position: 0% 50%;
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            color: white; /* White for footer text */
         }
-        50% {
-            background-position: 100% 50%;
+        html, body {
+            background: linear-gradient(50deg, #4B0082, #1C1C5B, #2E0C38); /* Gradient with Indigo, Midnight Navy, and Deep Mauve */
+            background-size: 400% 400%; /* Enable smooth animation */
+            animation: gradientAnimation 10s ease infinite; /* Apply gradient animation */
+            text-align: left;
+            font-family: Arial, sans-serif;
+            color: white; /* White for primary text */
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+            overflow: auto;
         }
-        100% {
-            background-position: 0% 50%;
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
-    }
 
-    a {
-        color: white; /* White for links */
-    }
-    a:hover {
-        color: #F5F5F5; /* Very light version of white (almost pure) */
-        opacity: 0.9; /* Slight transparency for a softer effect */
-    }
-    @font-face { font-family: 'Telemarines'; src: url('Echo/telemarines.ttf') format('truetype'); }
-    .echo-font { font-family: 'Telemarines', sans-serif; }
-    .marquee-container {
-        background-color: #2E0C38; /* Deep Mauve for subtle banner */
-        padding: 10px;
-        text-align: center;
-    }
-    hr {
-        border: 0;
-        height: 1px;
-        background: white; /* White for horizontal line */
-        margin: 10px 0;
-    }
-    .content {
-        margin: 20px;
-    }
+        a {
+            color: white; /* White for links */
+        }
+        a:hover {
+            color: #F5F5F5; /* Very light version of white (almost pure) */
+            opacity: 0.9; /* Slight transparency for a softer effect */
+        }
+        @font-face { font-family: 'Telemarines'; src: url('Echo/telemarines.ttf') format('truetype'); }
+        .echo-font { font-family: 'Telemarines', sans-serif; }
+        .marquee-container {
+            background-color: #2E0C38; /* Deep Mauve for subtle banner */
+            padding: 10px;
+            text-align: center;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background: white; /* White for horizontal line */
+            margin: 10px 0;
+        }
+        .content {
+            margin: 20px;
+            display: none; /* Hide content initially */
+        }
 
-    /* Popup styles */
-    .popup {
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        background-color: black; /* Maintain black background */
-        color: white; /* White for popup text */
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        z-index: 1000;
-        display: none;
-        opacity: 0;
-        transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    .popup.show {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8); /* Darker overlay for nighttime effect */
-        z-index: 999;
-        display: none;
-    }
-    .close-button {
-        display: block;
-        margin: 20px auto 0;
-        text-align: center;
-        color: white; /* White for button text */
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-        text-decoration: none;
-    }
-    .close-button:hover {
-        opacity: 0.8; /* Slightly fade on hover */
-    }
-</style>
+        /* Loader styles */
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1C1C5B; /* Same color as the website background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Ensure it is on top of everything */
+        }
+        .loader {
+            width: 40px;
+            height: 40px;
+            --c:no-repeat linear-gradient(#fff 0 0); /* Change loader color to white */
+            background: 
+                var(--c) 0    0,
+                var(--c) 0    100%, 
+                var(--c) 50%  0,  
+                var(--c) 50%  100%, 
+                var(--c) 100% 0, 
+                var(--c) 100% 100%;
+            background-size: 8px 50%;
+            animation: l9-0 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        .loader:before {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #fff; /* Change loader dot color to white */
+            top: calc(50% - 4px);
+            left: -8px;
+            animation: inherit;
+            animation-name: l9-1;
+        }
+        @keyframes l9-0 {
+            16.67% {background-size:8px 30%, 8px 30%, 8px 50%, 8px 50%, 8px 50%, 8px 50%}
+            33.33% {background-size:8px 30%, 8px 30%, 8px 30%, 8px 30%, 8px 50%, 8px 50%}
+            50%    {background-size:8px 30%, 8px 30%, 8px 30%, 8px 30%, 8px 50%, 8px 50%}
+            66.67% {background-size: 8px 50%, 8px 50%, 8px 30%, 8px 30%, 8px 50%, 8px 50%}
+            83.33% {background-size:8px 50%, 8px 50%, 8px 50%, 8px 50%, 8px 50%, 8px 50%}
+        }
+        @keyframes l9-1 {
+            20%     {left:0px}
+            40%,70% {left:calc(50% - 4px)}
+            80%,85% {left:8px;top:calc(50% - 4px)}
+            100%    {left:8px;top:-8px}
+        }
 
+        /* Popup styles */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            display: none; /* Hidden by default */
+            z-index: 1000; /* Ensure it is above other content */
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Center the popup */
+            background: black; /* Background color for the popup */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: none; /* Hidden by default */
+            z-index: 1001; /* Ensure it is above the overlay */
+        }
+
+        .close-button {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            color: #333; /* Dark color for close button */
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
     
+    <div class="loader-overlay"> <!-- Full-screen loader overlay -->
+        <div class="loader"></div> <!-- Loader element -->
+    </div>
+
     <div class="content">
         <h1>gamez-for-fun.github.io</h1>
         <h2>Welcome to my website!</h2>
@@ -197,29 +245,24 @@
                         <li><a href="/famous-games/papas/sushiria">Sushiria</a></li>
                         <li><a href="/famous-games/papas/tacomia">Tacomia</a></li>
                         <li><a href="/famous-games/papas/wingeria">Wingeria</a></li>
-                    
                 </details>
             </details>
             <details>
                 <summary>
                     <strong>Interesting Games</strong>
                 </summary>
-                
                     <li><a href="/interesting-games/snekmek">SnekMek</a></li>
                     <li><a href="/interesting-games/fnaw">FNaW (Five Nights at Winston's)</a></li>
                     <li><a href="/interesting-games/bloxors">Bloxors</a></li>
                     <li><a href="/interesting-games/dragon-maker">Dragon Maker</a></li>
                     <li><a href="/interesting-games/fairy-tail-vs-one-piece">Fairy Tail VS. One Piece</a></li>
-                
             </details>
             <details>
                 <summary>
                     <strong>Browser Hidden Games</strong>
                 </summary>
-                
                     <li><a href="/browser-hidden-games/surf">Microsoft Edge - Surf/Ski</a></li>
                     <li><a href="/browser-hidden-games/t-rex">Google Chrome - T-Rex</a></li>
-                
             </details>
 
             <h3>And you can use some interesting tools.</h3>
@@ -227,13 +270,11 @@
                 <summary>
                     <strong>Tools</strong>
                 </summary>
-                
                     <li><a href="/tools/webbrowser">Web Browser</a></li>
                     <li><a href="/tools/webcam">Webcam</a></li>
                     <li><a href="/tools/screenshot">Screenshot</a></li>
                     <li><a href="/tools/screen-recorder">Screen recorder</a></li>
                     <li><a href="/tools/music-player">Music player</a></li>
-                
             </details>
         </div>
 
@@ -242,22 +283,22 @@
             <a onclick="openFeedbackPopup()" href="#">Share Feedback</a>
         </div>
 
-        <div class="overlay" onclick="closeFeedbackPopup()" style="display: none;"></div>
+        <div class="overlay" onclick="closeFeedbackPopup()"></div>
         <div class="popup">
             <div data-tf-live="01JPJB94N71MXQCCSN4DC2ERJZ"></div>
             <script src="//embed.typeform.com/next/embed.js"></script>
-            <a class="close-button" onclick="closeFeedbackPopup()" href="#">Close</a>
+            <a class="close-button" onclick="closeFeedbackPopup()" href="#" style="color: white;">Close</a>
         </div>
 
         <script>
             function openFeedbackPopup() {
-                $('.overlay').fadeIn(300);
-                $('.popup').addClass('show').fadeIn(300);
+                $('.overlay').fadeIn(300); // Show overlay
+                $('.popup').fadeIn(300); // Show popup
             }
 
             function closeFeedbackPopup() {
-                $('.overlay').fadeOut(300);
-                $('.popup').removeClass('show').fadeOut(300);
+                $('.overlay').fadeOut(300); // Hide overlay
+                $('.popup').fadeOut(300); // Hide popup
             }
 
             function updateTime() {
@@ -269,6 +310,13 @@
 
             updateTime();
             setInterval(updateTime, 1000);
+
+            // Show content after 10 seconds
+            setTimeout(function() {
+                $('.loader-overlay').fadeOut(500, function() {
+                    $('.content').fadeIn(500);
+                });
+            }, 10000);
         </script>
     </body>
 </html>

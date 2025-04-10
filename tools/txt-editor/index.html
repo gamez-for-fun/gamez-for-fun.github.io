@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TXT Editor</title>
+    <link rel="icon" href="https://cdn.glitch.global/ac38f492-5e3f-4feb-95b9-c12a5d0ceae3/file-type-txt.png?v=1706385079471" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: white;
+        }
+        #editor {
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 50px;
+            background-color: white;
+            border-radius: 10px;
+        }
+        #textArea, #downloadButton {
+            opacity: 0;
+            transition: opacity 2s;
+        }
+        #textArea {
+            width: 100%;
+            margin-top: 10px;
+        }
+        #downloadButton {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body onload="fadeInElements()">
+    <div id="editor">
+        <h2>Text File Editor</h2>
+        <input type="file" id="fileInput" onchange="loadFile()">
+        <textarea id="textArea" rows="10"></textarea>
+        <button id="downloadButton" onclick="download()">Download modified</button>
+    </div>
+
+    <script>
+        let filename = "";
+
+        function fadeInElements() {
+            document.getElementById('textArea').style.opacity = 1;
+            document.getElementById('downloadButton').style.opacity = 1;
+        }
+
+        function loadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            filename = file.name;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const textArea = document.getElementById('textArea');
+                textArea.value = e.target.result;
+            };
+            reader.readAsText(file); 
+        }
+
+        function download() {
+            const text = document.getElementById("textArea").value;
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename + " modified.txt");
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+    </script>
+</body>
+</html>

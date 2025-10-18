@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamNest</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 480px;
+            background: rgba(26, 26, 46, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #a0a0a0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .form-section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .label-with-help {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #e0e0e0;
+        }
+
+        .help-icon {
+            width: 16px;
+            height: 16px;
+            background: #4a4a6a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 10px;
+            color: #fff;
+            position: relative;
+        }
+
+        .help-icon:hover::after {
+            content: attr(data-help);
+            position: absolute;
+            bottom: 25px;
+            right: 0;
+            background: #2a2a3a;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        input::placeholder {
+            color: #888;
+        }
+
+        select option {
+            background: #2a2a3a;
+            color: #fff;
+        }
+
+        #tv-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .result-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .result-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #a0a0a0;
+            margin-bottom: 12px;
+        }
+
+        .url-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .url-text {
+            flex: 1;
+            color: #64b5f6;
+            font-size: 13px;
+            word-break: break-all;
+            line-height: 1.4;
+            min-height: 18px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .copy-btn, .watch-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .copy-btn:hover, .watch-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .copy-btn:active, .watch-btn:active {
+            transform: translateY(0);
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+        }
+
+        .status-message {
+            margin-top: 12px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .status-message.show {
+            opacity: 1;
+        }
+
+        .status-message.success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #81c784;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .status-message.error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #ef5350;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        .watch-btn {
+            background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);
+        }
+
+        #hiddenTextarea {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 24px;
+                margin: 10px;
+                border-radius: 16px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            #tv-fields {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .url-container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            .action-buttons {
+                flex-direction: row;
+                width: 100%;
+            }
+
+            .copy-btn, .watch-btn {
+                flex: 1;
+                padding: 12px;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container fade-in">
+        <div class="header">
+            <h1>🎬 Movie & Serie</h1>
+            <p>Generate streaming links from TMDB database</p>
+        </div>
+
+        <div class="form-section">
+            <div class="section-title">Content Type</div>
+
+            <div class="form-group">
+                <label for="type">What do you want to watch?</label>
+                <select id="type" onchange="toggleFields(); updateTMDB();">
+                    <option value="tv">📺 Serie</option>
+                    <option value="movie">🎬 Movie</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="section-title">Streaming Options</div>
+
+            <div class="form-group">
+                <label for="source">Choose streaming source</label>
+                <select id="source">
+                    <option value="https://vidsrc.xyz/embed/">VidSrc.xyz (Recommended)</option>
+                    <option value="https://vidsrc.me/embed/">VidSrc.me</option>
+                    <option value="https://vidsrc.in/embed/">VidSrc.in</option>
+                    <option value="https://vidsrc.pm/embed/">VidSrc.pm</option>
+                    <option value="https://vidsrc.vc/embed/">VidSrc.vc</option>
+                    <option value="https://vidsrc.net/embed/">VidSrc.net</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="section-title">Content Details</div>
+
+            <div class="form-group">
+                <div class="label-with-help">
+                    <label for="tmdb">TMDB ID</label>
+                    <div class="help-icon" data-help="Find this ID on themoviedb.org in the URL">?</div>
+                </div>
+                <input type="text" id="tmdb" placeholder="e.g., 92685" />
+            </div>
+
+            <div id="tv-fields">
+                <div class="form-group">
+                    <label for="season">Season</label>
+                    <input type="number" id="season" placeholder="1" min="1" />
+                </div>
+                <div class="form-group">
+                    <label for="episode">Episode</label>
+                    <input type="number" id="episode" placeholder="1" min="1" />
+                </div>
+            </div>
+        </div>
+
+        <div class="result-section">
+            <div class="result-label">🔗 Generated Stream URL</div>
+            <div class="url-container">
+                <div class="url-text" id="finalUrl">Enter details above to generate URL</div>
+                <div class="action-buttons">
+                    <button class="copy-btn" onclick="copyUrl()" id="copyBtn">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        Copy
+                    </button>
+                    <button class="watch-btn" onclick="watchStream()" id="watchBtn">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        Watch
+                    </button>
+                </div>
+            </div>
+            <div class="status-message" id="statusMessage"></div>
+        </div>
+    </div>
+
+    <textarea id="hiddenTextarea"></textarea>
+
+    <script>
+        function toggleFields() {
+            const type = document.getElementById("type").value;
+            const tvFields = document.getElementById("tv-fields");
+
+            if (type === "movie") {
+                tvFields.style.display = "none";
+            } else {
+                tvFields.style.display = "grid";
+            }
+        }
+
+        function updateTMDB() {
+            const type = document.getElementById("type").value;
+            const tmdbInput = document.getElementById("tmdb");
+
+            if (type === "movie") {
+                tmdbInput.value = "787699";
+                tmdbInput.placeholder = "e.g., 787699 (Wonka)";
+            } else {
+                tmdbInput.value = "92685";
+                tmdbInput.placeholder = "e.g., 92685 (The Bear)";
+            }
+        }
+
+        function updateFinalUrl() {
+            const type = document.getElementById("type").value;
+            const source = document.getElementById("source").value;
+            const tmdb = document.getElementById("tmdb").value.trim();
+            const season = document.getElementById("season").value.trim();
+            const episode = document.getElementById("episode").value.trim();
+            const finalUrlElement = document.getElementById("finalUrl");
+            const watchBtn = document.getElementById("watchBtn");
+
+            if (!tmdb) {
+                finalUrlElement.textContent = "Enter TMDB ID to generate URL";
+                finalUrlElement.style.color = "#888";
+                watchBtn.disabled = true;
+                watchBtn.style.opacity = "0.5";
+                watchBtn.style.cursor = "not-allowed";
+                return;
+            }
+
+            let finalUrl = `${source}${type}?tmdb=${tmdb}`;
+
+            if (type === "tv") {
+                if (season && episode) {
+                    finalUrl += `&season=${season}&episode=${episode}`;
+                    watchBtn.disabled = false;
+                    watchBtn.style.opacity = "1";
+                    watchBtn.style.cursor = "pointer";
+                } else {
+                    finalUrlElement.textContent = "No season and episode.";
+                    finalUrlElement.style.color = "#ff9800";
+                    watchBtn.disabled = true;
+                    watchBtn.style.opacity = "0.5";
+                    watchBtn.style.cursor = "not-allowed";
+                    return;
+                }
+            } else {
+                watchBtn.disabled = false;
+                watchBtn.style.opacity = "1";
+                watchBtn.style.cursor = "pointer";
+            }
+
+            finalUrlElement.textContent = finalUrl;
+            finalUrlElement.style.color = "#64b5f6";
+        }
+
+        function showStatusMessage(message, type) {
+            const statusEl = document.getElementById("statusMessage");
+            statusEl.textContent = message;
+            statusEl.className = `status-message show ${type}`;
+
+            setTimeout(() => {
+                statusEl.classList.remove("show");
+            }, 3000);
+        }
+
+        function copyUrl() {
+            const finalUrl = document.getElementById("finalUrl").textContent;
+            const copyBtn = document.getElementById("copyBtn");
+
+            if (!finalUrl || finalUrl.includes("Enter") || finalUrl.includes("generate")) {
+                showStatusMessage("Nothing to copy! Please fill in the required fields.", "error");
+                return;
+            }
+
+            const textarea = document.getElementById("hiddenTextarea");
+            textarea.value = finalUrl;
+            textarea.select();
+
+            try {
+                document.execCommand("copy");
+
+                // Visual feedback
+                copyBtn.textContent = "Copied!";
+                copyBtn.classList.add("copied");
+                showStatusMessage("URL copied to clipboard successfully!", "success");
+
+                setTimeout(() => {
+                    copyBtn.innerHTML = `
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        Copy
+                    `;
+                    copyBtn.classList.remove("copied");
+                }, 2000);
+
+            } catch (err) {
+                showStatusMessage("Failed to copy. Please select and copy manually.", "error");
+            }
+        }
+
+        function watchStream() {
+            const finalUrl = document.getElementById("finalUrl").textContent;
+
+            if (!finalUrl || finalUrl.includes("Enter") || finalUrl.includes("generate")) {
+                showStatusMessage("Cannot open stream! Please fill in the required fields.", "error");
+                return;
+            }
+
+            // Open the streaming URL in a new tab
+            window.open(finalUrl, '_blank');
+            showStatusMessage("Opening stream in new tab...", "success");
+        }
+
+        // Add input validation and real-time updates
+        function addInputListeners() {
+            const inputs = ['tmdb', 'season', 'episode'];
+            inputs.forEach(id => {
+                const element = document.getElementById(id);
+                element.addEventListener('input', updateFinalUrl);
+                element.addEventListener('blur', updateFinalUrl);
+            });
+
+            document.getElementById('source').addEventListener('change', updateFinalUrl);
+            document.getElementById('type').addEventListener('change', updateFinalUrl);
+        }
+
+        // Initialize the application
+        window.onload = () => {
+            toggleFields();
+            updateTMDB();
+            updateFinalUrl();
+            addInputListeners();
+        };
+    </script>
+</body>
+</html>

@@ -1,313 +1,230 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iRiS for Chromebook</title>
-    <link rel="icon" href="logo.png" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
-    <style>
-    h1, h2 {
-        text-align: center;
-        color: #5a433f; /* #5a433f for headers */
-    }
-    h3 {
-        color: #5a433f;
-    }
-    .footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-        color: #5a433f; /* #5a433f for footer text */
-    }
-html, body {
-    background: linear-gradient(50deg, #ffdad3, #e9c7be, #d4b3ad); /* Gradient now includes very dark blue */
-    background-size: 400% 400%; /* Smooth animation */
-    animation: gradientAnimation 10s ease infinite; /* Apply gradient animation */
-    text-align: left;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Google</title>
+<link rel="icon" href="https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+<style>
+  html, body {
+    height: 100%; margin: 0; padding: 0;
     font-family: Arial, sans-serif;
-    color: #5a433f; /* Light grey for primary text */
-    margin: 0;
-    padding: 20px;
-    height: 100vh;
-    overflow: auto;
-}
-
-    @keyframes gradientAnimation {
-        0% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
-    }
-
-    a {
-        color: #5a433f; /* #5a433f for links */
-    }
-    a:hover {
-        color: #5a433f; /* Very light version of #5a433f (almost pure) */
-        opacity: 0.9; /* Slight transparency for a softer effect */
-    }
-    @font-face { font-family: 'Telemarines'; src: url('Echo/telemarines.ttf') format('truetype'); }
-    .echo-font { font-family: 'Telemarines', sans-serif; }
-    .marquee-container {
-        padding: 10px;
-        text-align: center;
-    }
-    hr {
-        border: 0;
-        height: 1px;
-        background: #5a433f; /* #5a433f for horizontal line */
-        margin: 10px 0;
-    }
-    .content {
-        margin: 20px;
-        display: none; /* Hide content initially */
-    }
-
-    /* Loader styles */
-    .loader-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #e9c7be;
-    background-size: 400% 400%; /* Smooth animation */
-    animation: gradientAnimation 10s ease infinite; /* Apply gradient animation */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999; /* Ensure it is on top of everything */
-}
-
-    .loader {
-        --s: 60px; /* Decreased size by 15px */
-        --_d: calc(0.353 * var(--s));
-        width: calc(var(--s) + var(--_d));
-        aspect-ratio: 1;
-        display: grid;
-    }
-    .loader:before,
-    .loader:after {
-        content: "";
-        clip-path: polygon(var(--_d) 0, 100% 0, 100% calc(100% - var(--_d)), calc(100% - var(--_d)) 100%, 0 100%, 0 var(--_d));
-        background: conic-gradient(from -90deg at var(--s) var(--_d), #fff 135deg, #666 0 270deg, #aaa 0);
-        animation: l4 1.2s infinite;
-    }
-    .loader:before {
-        z-index: 1;
-        margin-bottom: calc(var(--_d) / -2 - 1px);
-    }
-    .loader:after {
-        margin-top: calc(var(--_d) / -2 - 1px);
-        animation-delay: 0.6s;
-    }
-    @keyframes l4 {
-        0% { transform: translate(0) }
-        16.67% { transform: translate(-10px) }
-        33.33% { transform: translate(10px) }
-        50%, 100% { transform: translate(0) }
-    }
-
-    /* Popup styles */
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
-        display: none; /* Hidden by default */
-        z-index: 1000; /* Ensure it is above other content */
-    }
-
-    .popup {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%); /* Center the popup */
-        background: black; /* Background color for the popup */
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        display: none; /* Hidden by default */
-        z-index: 1001; /* Ensure it is above the overlay */
-    }
-
-    .close-button {
-        display: block;
-        margin-top: 10px;
-        text-align: center;
-        color: #333; /* Dark color for close button */
-        text-decoration: none;
-    }
+    background: linear-gradient(135deg, #10002b, #240046, #3c096c, #5a189a);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    color: #e0aaff;
+    overflow-y: auto;
+  }
+  @keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  h1,h2 { text-align:center; color:#e0aaff; }
+  a { color: #7b2cbf; text-decoration:none; }
+  a:hover { color: #9d4edd; }
+  hr { border:none; height:1px; background:#7b2cbf; margin:10px 0; }
+  .echo-font { font-family: 'Telemarines', sans-serif; color:#c77dff; }
+  .wrapper { display: flex; flex-direction: column; min-height: 100vh; }
+  .content {
+    flex: 1; max-width: 1000px;
+    margin: 0 auto; padding: 20px; box-sizing: border-box;
+    display: none; padding-bottom: 100px;
+  }
+  /* Loader */
+  .loader-overlay {
+    position: fixed; inset: 0;
+    background: linear-gradient(135deg, #10002b, #240046, #3c096c, #5a189a);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    display: flex; justify-content: center; align-items: center;
+    z-index: 9999;
+  }
+  .loader {
+    height: 100px; aspect-ratio: 1; position: relative;
+    clip-path: polygon(
+      100% 50%,82.89% 61.97%,88.3% 82.14%,67.5% 80.31%,
+      58.68% 99.24%,43.92% 84.47%,25% 93.3%,23.19% 72.5%,
+      3.02% 67.1%,15% 50%,3.02% 32.9%,23.19% 27.5%,25% 6.7%,
+      43.92% 15.53%,58.68% 0.76%,67.5% 19.69%,88.3% 17.86%,
+      82.89% 38.03%,100% 50%,82.89% 61.97%,73.02% 58.38%,
+      85% 50%,73.02% 41.62%,76.81% 27.5%,62.25% 28.78%,
+      56.08% 15.53%,45.75% 25.87%,32.5% 19.69%,31.23% 34.25%,
+      17.11% 38.03%,25.5% 50%,17.11% 61.97%,31.23% 65.75%,
+      32.5% 80.31%,45.75% 74.13%,56.08% 84.47%,62.25% 71.22%,
+      76.81% 72.5%,73.02% 58.38%,85% 50%);
+    animation: l8-0 1.5s linear infinite alternate;
+    filter: blur(12px);
+  }
+  .loader:before {
+    content: "";
+    position: absolute; inset: 0;
+    background: conic-gradient(
+      #0000 35%,#7b2cbf,#9d4edd,#c77dff,#e0aaff,#0000 65%
+    );
+    animation: l8-1 2s linear infinite;
+  }
+  @keyframes l8-0 {
+    to { clip-path: polygon(
+        100% 50%,96.98% 67.1%,88.3% 82.14%,75% 93.3%,58.68% 99.24%,
+        41.32% 99.24%,25% 93.3%,11.7% 82.14%,3.02% 67.1%,0% 50%,
+        3.02% 32.9%,11.7% 17.86%,25% 6.7%,41.32% 0.76%,58.68% 0.76%,
+        75% 6.7%,88.3% 17.86%,96.98% 32.9%,100% 50%,96.98% 67.1%,
+        85.71% 63%,88% 50%,85.71% 37%,79.11% 25.57%,69% 17.09%,
+        56.6% 12.58%,43.4% 12.58%,31% 17.09%,20.89% 25.57%,14.29% 37%,
+        12% 50%,14.29% 63%,20.89% 74.43%,31% 82.91%,43.4% 87.42%,
+        56.6% 87.42%,69% 82.91%,79.11% 74.43%,85.71% 63%,88% 50%) }
+  }
+  @keyframes l8-1 { to { rotate: 1turn; } }
+  /* Tiles styling */
+  .games-section {
+    display: grid; grid-template-columns: repeat(auto-fit,minmax(120px, 1fr));
+    gap: 20px; justify-items: center; margin: 15px 0;
+  }
+  .game-tile {
+    background: rgba(123, 44, 191, 0.85);
+    border: 2px solid #9d4edd;
+    border-radius: 10px;
+    width: 120px; height: 120px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; color: #e0aaff; transition: 0.3s;
+  }
+  .game-tile:hover {
+    background: #5a189a; transform: translateY(-6px);
+    box-shadow: 0 6px 18px rgba(154, 77, 221, 0.6);
+  }
+  .game-tile img {
+    width: 60px; height: 60px; object-fit: cover; border-radius: 8px; margin-bottom: 5px;
+    filter: drop-shadow(1px 1px 1px rgba(16, 0, 43, 0.6));
+  }
+  /* Footer */
+  .footer {
+    position: fixed; left: 0; bottom: 0;
+    width: 100%; background: rgba(36, 0, 70, 0.9);
+    color: #e0aaff; text-align: center; padding: 12px 8px;
+    font-size: 14px; box-shadow: 0 -2px 5px rgba(16, 0, 43, 0.8);
+    z-index: 10000;
+  }
 </style>
 </head>
-
 <body>
-    
-    <div class="loader-overlay"> <!-- Full-screen loader overlay -->
-        <div class="loader"></div> <!-- Loader element -->
+
+<div class="loader-overlay"><div class="loader"></div></div>
+<div class="wrapper">
+  <div class="content">
+    <h1 class="echo-font">Gamez for Fun</h1>
+    <h2>Welcome to my website!</h2>
+    <h2><a href="https://streamnest.com">StreamNest</a> - Watch Movies and Series</h2>
+    <h3>Enjoy all games below.</h3>
+
+    <!-- Minecraft -->
+    <hr>
+    <h3>Minecraft</h3>
+    <div class="games-section">
+      <a href="https://gamez-for-fun.github.io/minecraft/1.2.6/" class="game-tile"><img src="icons/minecraft.png" alt="Minecraft 1.2.6">1.2.6</a>
+      <a href="https://gamez-for-fun.github.io/minecraft/1.3/" class="game-tile"><img src="icons/minecraft.png" alt="Minecraft 1.3">1.3</a>
+      <a href="https://gamez-for-fun.github.io/minecraft/1.5.2/" class="game-tile"><img src="icons/minecraft.png" alt="Minecraft 1.5.2">1.5.2</a>
+      <a href="https://gamez-for-fun.github.io/minecraft/1.8%20all/" class="game-tile"><img src="icons/minecraft.png" alt="Minecraft 1.8 All">1.8 (All)</a>
+      <a href="https://gamez-for-fun.github.io/minecraft/1.8/" class="game-tile"><img src="icons/minecraft.png" alt="Minecraft 1.8">1.8</a>
+      <a href="https://gamez-for-fun.github.io/minecraft/1.8%20international/" class="game-tile"><img src="icons/minecraft.png" alt="Minecraft 1.8 Intl">1.8 Intl</a>
+      <a href="https://gamez-for-fun.github.io/minecraft/1.12/" class="game-tile"><img src="icons/minecraft.png" alt="Minecraft 1.12">1.12</a>
     </div>
 
-    <div class="content">
-        <h1>Gamez for Fun</h1>
-        <h2>Welcome to my website!</h2>
-        <h2><a href="/Echo">IPTV</a> - The way to see TV</h2>
-        <h3>Here you can play some typical games.</h3>
-        <p>For example:</p>
-        <details>
-            <summary><strong>Minecraft</strong></summary>
-                <li><a href="/minecraft/1.2.6/">1.2.6</a></li>
-                <li><a href="/minecraft/1.3/">1.3</a></li>
-                <li><a href="/minecraft/1.5.2/">1.5.2</a></li>
-                <li><a href="/minecraft/1.8%20all/">1.8 (singleplayer and multiplayer)</a></li>
-                <li><a href="/minecraft/1.8/">1.8 (multiplayer only)</a></li>
-                <li><a href="/minecraft/1.8%20international/">1.8 International (multiplayer only)</a></li>
-                <li><a href="/minecraft/1.12/">1.12</a></li>
-        </details>
-        <details>
-            <summary><strong>Famous Games</strong></summary>
-                <li><a href="/famous-games/xtreme-good-guys-vs-bad">Xtreme Good guys VS. Bad</a></li>
-                <li><a href="/famous-games/x-trench-run">X-Trench Run</a></li>
-                <li><a href="/famous-games/bad-time-simulator/index.html">Bad Time Simulator (Sans Fight)</a></li>
-                <li><a href="/famous-games/ice-dodo">Ice Dodo</a></li>
-                <li><a href="/famous-games/tunnel-rush-mania">Tunnel Rush Mania</a></li>
-                <li><a href="/famous-games/sandboxels">Sandboxels</a></li>
-                <li><a href="/famous-games/slope">Slope</a></li>
-                <li><a href="/famous-games/tunnel-rush">Tunnel Rush</a></li>
-                <li><a href="/famous-games/happy-wheels">Happy Wheels</a></li>
-                <li><a href="/famous-games/tag">Tag</a></li>
-                <li><a href="/famous-games/wordle">Wordle</a></li>
-                <li><a href="/famous-games/gd">Geometry Dash</a></li>
-                <li><a href="/famous-games/8-ball-pool">8 Ball pool</a></li>
-                <li><a href="/famous-games/snow-rider-3d">Snow Rider 3D</a></li>
-                <li><a href="/famous-games/fnaf/1">FNaF 1</a></li>
-                <li><a href="/famous-games/fnaf/2">FNaF 2</a></li>
-                <li><a href="/famous-games/fnaf/3">FNaF 3</a></li>
-                <li><a href="/famous-games/fnaf/4">FNaF 4</a></li>
-                <li><a href="/famous-games/worldbox">WorldBox</a></li>
-                <li><a href="/famous-games/bitlife">BitLife</a></li>
-                <li><a href="/famous-games/cookie-clicker">Cookie Clicker</a></li>
-                <li><a href="/famous-games/isaac">The Binding of Isaac: Wrath of the Lamb</a></li>
-                <li><a href="/famous-games/ovo">OvO</a></li>
-                <li><a href="/famous-games/pac-man">Pac-Man</a></li>
-                <li><a href="/famous-games/alien-hominid">Alien Hominid</a></li>
-                <li><a href="/famous-games/mario-bros">Mario Bros</a></li>
-                <li><a href="/famous-games/monkey-mart">Monkey Mart</a></li>
-                <li><a href="/famous-games/1v1-lol">1v1 LOL</a></li>
-                <li><a href="/famous-games/backrooms-3d">Backrooms 3D</a></li>
-                <li><a href="/famous-games/basket-random">Basket Random</a></li>
-                <li><a href="/famous-games/boxel-rebound">Boxel Rebound</a></li>
-                <li><a href="/famous-games/drive-mad">Drive Mad</a></li>
-                <li><a href="/famous-games/rooftop-snipers">Rooftop Snipers</a></li>
-                <li><a href="/famous-games/terraria">Terraria</a></li>
-                <li><a href="/famous-games/among-us">Among Us</a></li>
-                <details>
-                    <summary>
-                        <strong>Pokemon</strong>
-                    </summary>
-                        <li><a href="/famous-games/pokemon/1">Part 1</a></li>
-                        <li><a href="/famous-games/pokemon/2">Part 2</a></li>
-                </details>
-                <details>
-                    <summary>
-                        <strong>Papa's</strong>
-                    </summary>
-                        <li><a href="/famous-games/papas/bakeria">Bakeria</a></li>
-                        <li><a href="/famous-games/papas/burgeria">Burgeria</a></li>
-                        <li><a href="/famous-games/papas/cheeseria">Cheeseria</a></li>
-                        <li><a href="/famous-games/papas/cupcakeria">Cupcakeria</a></li>
-                        <li><a href="/famous-games/papas/donuteria">Donuteria</a></li>
-                        <li><a href="/famous-games/papas/freezeria">Freezeria</a></li>
-                        <li><a href="/famous-games/papas/hotdoggeria">Hot Doggeria</a></li>
-                        <li><a href="/famous-games/papas/pastaria">Pastaria</a></li>
-                        <li><a href="/famous-games/papas/scooperia">Scooperia</a></li>
-                        <li><a href="/famous-games/papas/sushiria">Sushiria</a></li>
-                        <li><a href="/famous-games/papas/tacomia">Tacomia</a></li>
-                        <li><a href="/famous-games/papas/wingeria">Wingeria</a></li>
-                </details>
-            </details>
-            <details>
-                <summary>
-                    <strong>Interesting Games</strong>
-                </summary>
-                    <li><a href="/interesting-games/snekmek">SnekMek</a></li>
-                    <li><a href="/interesting-games/fnaw">FNaW (Five Nights at Winston's)</a></li>
-                    <li><a href="/interesting-games/bloxors">Bloxors</a></li>
-                    <li><a href="/interesting-games/dragon-maker">Dragon Maker</a></li>
-                    <li><a href="/interesting-games/fairy-tail-vs-one-piece">Fairy Tail VS. One Piece</a></li>
-            </details>
-            <details>
-                <summary>
-                    <strong>Browser Hidden Games</strong>
-                </summary>
-                    <li><a href="/browser-hidden-games/surf">Microsoft Edge - Surf/Ski</a></li>
-                    <li><a href="/browser-hidden-games/t-rex">Google Chrome - T-Rex</a></li>
-            </details>
+    <!-- Famous Games -->
+    <hr>
+    <h3>Famous Games</h3>
+    <div class="games-section">
+      <a href="https://gamez-for-fun.github.io/famous-games/x-trench-run" class="game-tile"><img src="icons/x-trench-run.png" alt="X-Trench Run">X-Trench Run</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/xtreme-good-guys-vs-bad" class="game-tile"><img src="icons/xtreme.png" alt="Xtreme Good Guys VS Bad">Xtreme Good Guys vs Bad</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/bad-time-simulator/" class="game-tile"><img src="icons/sans.png" alt="Bad Time Simulator">Bad Time Simulator</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/ice-dodo" class="game-tile"><img src="icons/ice-dodo.png" alt="Ice Dodo">Ice Dodo</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/tunnel-rush-mania" class="game-tile"><img src="icons/tunnel-rush.png" alt="Tunnel Rush Mania">Tunnel Rush Mania</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/sandboxels" class="game-tile"><img src="icons/sandboxels.png" alt="Sandboxels">Sandboxels</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/slope" class="game-tile"><img src="icons/slope.png" alt="Slope">Slope</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/happy-wheels" class="game-tile"><img src="icons/happy-wheels.png" alt="Happy Wheels">Happy Wheels</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/tag" class="game-tile"><img src="icons/tag.png" alt="Tag">Tag</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/wordle" class="game-tile"><img src="icons/wordle.png" alt="Wordle">Wordle</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/gd" class="game-tile"><img src="icons/gd.png" alt="Geometry Dash">Geometry Dash</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/8-ball-pool" class="game-tile"><img src="icons/8ball.png" alt="8 Ball Pool">8 Ball Pool</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/snow-rider-3d" class="game-tile"><img src="icons/snowrider.png" alt="Snow Rider 3D">Snow Rider 3D</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/fnaf/1" class="game-tile"><img src="icons/fnaf1.png" alt="FNaF 1">FNaF 1</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/fnaf/2" class="game-tile"><img src="icons/fnaf2.png" alt="FNaF 2">FNaF 2</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/fnaf/3" class="game-tile"><img src="icons/fnaf3.png" alt="FNaF 3">FNaF 3</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/fnaf/4" class="game-tile"><img src="icons/fnaf4.png" alt="FNaF 4">FNaF 4</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/worldbox" class="game-tile"><img src="icons/worldbox.png" alt="WorldBox">WorldBox</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/bitlife" class="game-tile"><img src="icons/bitlife.png" alt="BitLife">BitLife</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/cookie-clicker" class="game-tile"><img src="icons/cookie-clicker.png" alt="Cookie Clicker">Cookie Clicker</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/isaac" class="game-tile"><img src="icons/isaac.png" alt="Binding of Isaac">Binding of Isaac</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/ovo" class="game-tile"><img src="icons/ovo.png" alt="OvO">OvO</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/pac-man" class="game-tile"><img src="icons/pacman.png" alt="Pac-Man">Pac-Man</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/alien-hominid" class="game-tile"><img src="icons/alien.png" alt="Alien Hominid">Alien Hominid</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/mario-bros" class="game-tile"><img src="icons/mario.png" alt="Mario Bros">Mario Bros</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/monkey-mart" class="game-tile"><img src="icons/monkeymart.png" alt="Monkey Mart">Monkey Mart</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/1v1-lol" class="game-tile"><img src="icons/1v1lol.png" alt="1v1 LOL">1v1 LOL</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/backrooms-3d" class="game-tile"><img src="icons/backrooms.png" alt="Backrooms 3D">Backrooms 3D</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/basket-random" class="game-tile"><img src="icons/basket.png" alt="Basket Random">Basket Random</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/boxel-rebound" class="game-tile"><img src="icons/boxel.png" alt="Boxel Rebound">Boxel Rebound</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/drive-mad" class="game-tile"><img src="icons/drive.png" alt="Drive Mad">Drive Mad</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/rooftop-snipers" class="game-tile"><img src="icons/rooftop.png" alt="Rooftop Snipers">Rooftop Snipers</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/terraria" class="game-tile"><img src="icons/terraria.png" alt="Terraria">Terraria</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/among-us" class="game-tile"><img src="icons/among-us.png" alt="Among Us">Among Us</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/papas/burgeria" class="game-tile"><img src="icons/papas.png" alt="Papas Burgeria">Papa’s Burgeria</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/papas/freezeria" class="game-tile"><img src="icons/papas.png" alt="Papas Freezeria">Papa’s Freezeria</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/papas/sushiria" class="game-tile"><img src="icons/papas.png" alt="Papas Sushiria">Papa’s Sushiria</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/papas/wingeria" class="game-tile"><img src="icons/papas.png" alt="Papas Wingeria">Papa’s Wingeria</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/pokemon/1" class="game-tile"><img src="icons/pokemon.png" alt="Pokemon Part 1">Pokémon Part 1</a>
+      <a href="https://gamez-for-fun.github.io/famous-games/pokemon/2" class="game-tile"><img src="icons/pokemon.png" alt="Pokemon Part 2">Pokémon Part 2</a>
+    </div>
 
-            <h3>And you can use some interesting tools.</h3>
-            <details>
-                <summary>
-                    <strong>Tools</strong>
-                </summary>
-                    <li><a href="/tools/webbrowser">Web Browser</a></li>
-                    <li><a href="/tools/webcam">Webcam</a></li>
-                    <li><a href="/tools/screenshot">Screenshot</a></li>
-                    <li><a href="/tools/screen-recorder">Screen recorder</a></li>
-                    <li><a href="/tools/music-player">Music player</a></li>
-            </details>
-        </div>
+    <hr><h3>Interesting Games</h3>
+    <div class="games-section">
+      <a href="https://gamez-for-fun.github.io/interesting-games/snekmek" class="game-tile"><img src="icons/snekmek.png" alt="SnekMek">SnekMek</a>
+      <a href="https://gamez-for-fun.github.io/interesting-games/fnaw" class="game-tile"><img src="icons/fnaw.png" alt="FNaW">FNaW</a>
+      <a href="https://gamez-for-fun.github.io/interesting-games/bloxors" class="game-tile"><img src="icons/bloxors.png" alt="Bloxors">Bloxors</a>
+      <a href="https://gamez-for-fun.github.io/interesting-games/dragon-maker" class="game-tile"><img src="icons/dragon.png" alt="Dragon Maker">Dragon Maker</a>
+      <a href="https://gamez-for-fun.github.io/interesting-games/fairy-tail-vs-one-piece" class="game-tile"><img src="icons/fairytail.png" alt="Fairy Tail vs One Piece">Fairy Tail vs One Piece</a>
+    </div>
 
-        <div class="footer" style="margin: 15px;">
-            <p id="time"></p>
-            <a onclick="openFeedbackPopup()" href="#">Share Feedback</a>
-        </div>
+    <hr><h3>Browser Hidden Games</h3>
+    <div class="games-section">
+      <a href="https://gamez-for-fun.github.io/browser-hidden-games/surf" class="game-tile"><img src="icons/surf.png" alt="Edge Surf">Edge Surf</a>
+      <a href="https://gamez-for-fun.github.io/browser-hidden-games/t-rex" class="game-tile"><img src="icons/t-rex.png" alt="Chrome T-Rex">Chrome T-Rex</a>
+    </div>
 
-        <div class="overlay" onclick="closeFeedbackPopup()"></div>
-        <div class="popup">
-            <div data-tf-live="01JPJB94N71MXQCCSN4DC2ERJZ"></div>
-            <script src="//embed.typeform.com/next/embed.js"></script>
-            <a class="close-button" onclick="closeFeedbackPopup()" href="#" style="color: white;">Close</a>
-        </div>
+    <hr><h3>Tools</h3>
+    <div class="games-section">
+      <a href="https://gamez-for-fun.github.io/tools/webbrowser" class="game-tile"><img src="icons/webbrowser.png" alt="Web Browser">Web Browser</a>
+      <a href="https://gamez-for-fun.github.io/tools/webcam" class="game-tile"><img src="icons/webcam.png" alt="Webcam">Webcam</a>
+      <a href="https://gamez-for-fun.github.io/tools/screenshot" class="game-tile"><img src="icons/screenshot.png" alt="Screenshot">Screenshot</a>
+      <a href="https://gamez-for-fun.github.io/tools/screen-recorder" class="game-tile"><img src="icons/screen-recorder.png" alt="Screen Recorder">Screen Recorder</a>
+      <a href="https://gamez-for-fun.github.io/tools/music-player" class="game-tile"><img src="icons/music-player.png" alt="Music Player">Music Player</a>
+    </div>
+  </div>
 
-        <script>
-            function openFeedbackPopup() {
-                $('.overlay').fadeIn(300); // Show overlay
-                $('.popup').fadeIn(300); // Show popup
-            }
+  <footer class="footer" id="site-footer">
+    <span id="time"></span>
+    <div data-tf-live="01K7WK4VEAFJ0FEF1XM1N08WB6"></div>
+    <script src="//embed.typeform.com/next/embed.js"></script>
+  </footer>
+</div>
 
-            function closeFeedbackPopup() {
-                $('.overlay').fadeOut(300); // Hide overlay
-                $('.popup').fadeOut(300); // Hide popup
-            }
+<script>
+  setTimeout(() => {
+    $('.loader-overlay').fadeOut(600, () => {
+      $('.content').fadeIn(600);
+    });
+  }, 5000);
 
-            function updateTime() {
-                const now = new Date();
-                const hours = String(now.getHours()).padStart(2, '0');
-                const minutes = String(now.getMinutes()).padStart(2, '0');
-                document.getElementById('time').textContent = hours + ':' + minutes;
-            }
-
-            updateTime();
-            setInterval(updateTime, 1000);
-
-            // Show content after 10 seconds
-            setTimeout(function() {
-                $('.loader-overlay').fadeOut(500, function() {
-                    $('.content').fadeIn(500);
-                });
-            }, 5000);
-        </script>
-    </body>
+  function updateTime() {
+    const now = new Date();
+    document.getElementById('time').textContent =
+      now.getHours().toString().padStart(2, '0') +
+      ':' +
+      now.getMinutes().toString().padStart(2, '0');
+  }
+  updateTime();
+  setInterval(updateTime, 1000);
+</script>
+</body>
 </html>

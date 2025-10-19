@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Google</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      @keyframes gradientMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 2rem;
+        font-family: Consolas, "Courier New", monospace;
+        color: #e0aaff;
+        background: linear-gradient(
+          135deg,
+          #10002b,
+          #240046,
+          #3c096c,
+          #5a189a
+        );
+        background-size: 400% 400%;
+        animation: gradientMove 18s ease infinite;
+        user-select: none;
+        text-shadow: 0 0 6px #9d4edd, 0 0 12px #7b2cbf;
+      }
+
+      pre.ascii-title {
+        color: #c77dff;
+        text-align: center;
+        line-height: 1.2;
+        font-weight: bold;
+        font-size: 15px;
+        white-space: pre;
+        margin-bottom: 2rem;
+        text-shadow: 0 0 10px #c77dff, 0 0 25px #9d4edd, 0 0 45px #7b2cbf;
+        user-select: text;
+      }
+
+      section.portfolio {
+        width: 100%;
+        max-width: 620px;
+        text-align: center;
+        background: rgba(36, 0, 70, 0.55);
+        border: 2px solid #9d4edd;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(154, 77, 221, 0.4);
+        padding: 20px 25px;
+      }
+
+      section.portfolio h2 {
+        color: #e0aaff;
+        margin-bottom: 0.75rem;
+        font-size: 1.4rem;
+        text-shadow: 0 0 12px #9d4edd, 0 0 25px #7b2cbf;
+        border-bottom: 1px solid #c77dff;
+        display: inline-block;
+        padding-bottom: 3px;
+      }
+
+      select,
+      button {
+        width: 100%;
+        border: 2px solid #c77dff;
+        background: rgba(91, 0, 179, 0.2);
+        border-radius: 10px;
+        font-size: 1rem;
+        color: #e0aaff;
+        padding: 12px 14px;
+        margin-top: 0.6rem;
+        cursor: pointer;
+        font-family: monospace;
+        transition: 0.3s ease;
+      }
+
+      select:hover,
+      select:focus,
+      button:hover,
+      button:focus {
+        border-color: #9d4edd;
+        box-shadow: 0 0 10px #c77dff;
+        outline: none;
+        background: rgba(91, 0, 179, 0.4);
+      }
+
+      .exit-hint {
+        color: #c77dff;
+        margin-top: 1rem;
+        margin-bottom: 1.2rem;
+        text-shadow: 0 0 8px #c77dff;
+        font-size: 0.95rem;
+      }
+
+      #ruffle {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: black;
+        border: none;
+        z-index: 9999;
+        overflow: hidden;
+      }
+
+      @keyframes pulseGlow {
+        0%,
+        100% {
+          box-shadow: 0 0 10px #7b2cbf;
+        }
+        50% {
+          box-shadow: 0 0 25px #c77dff;
+        }
+      }
+
+      button#run-swf {
+        animation: pulseGlow 2.5s infinite ease-in-out;
+      }
+
+      footer {
+        margin-top: 2rem;
+        color: #c77dff;
+        font-size: 0.9rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <pre class="ascii-title">
+                                     ▄█                                                               
+▀███▀▀▀██▄                           ██             ▄▄█▀▀▀█▄█                                         
+  ██   ▀██▄                          ▀▀           ▄██▀     ▀█                                         
+  ██   ▄██ ▄█▀██▄ ▀████████▄ ▄█▀██▄     ▄██▀███   ██▀       ▀ ▄█▀██▄ ▀████████▄█████▄   ▄▄█▀██ ▄██▀███
+  ███████ ██   ██   ██   ▀████   ██     ██   ▀▀   ██         ██   ██   ██    ██    ██  ▄█▀   ████   ▀▀
+  ██       ▄█████   ██    ██ ▄█████     ▀█████▄   ██▄    ▀████▄█████   ██    ██    ██  ██▀▀▀▀▀▀▀█████▄
+  ██      ██   ██   ██   ▄████   ██     █▄   ██   ▀██▄     ████   ██   ██    ██    ██  ██▄    ▄█▄   ██
+▄████▄    ▀████▀██▄ ██████▀ ▀████▀██▄   ██████▀     ▀▀███████▀████▀██▄████  ████  ████▄ ▀█████▀██████▀
+                    ██                                                                                
+                  ▄████▄                                                                              
+    </pre>
+
+    <section class="portfolio">
+      <h2>Select a Restaurant</h2>
+
+      <select id="restaurant-select">
+        <option value="bakeria">Bakeria</option>
+        <option value="pancakeria">Pancakeria</option>
+        <option value="burgeria">Burgeria</option>
+        <option value="cheeseria">Cheeseria</option>
+        <option value="cupcakeria">Cupcakeria</option>
+        <option value="donuteria">Donuteria</option>
+        <option value="freezeria">Freezeria</option>
+        <option value="hotdoggeria">Hotdoggeria</option>
+        <option value="pastaria">Pastaria</option>
+        <option value="scooperia">Scooperia</option>
+        <option value="sushiria">Sushiria</option>
+        <option value="tacomia">Tacomia</option>
+        <option value="wingeria">Wingeria</option>
+      </select>
+
+      <div class="exit-hint">Press Ctrl+Esc to exit the game safely.</div>
+      <button id="run-swf">Run Game</button>
+    </section>
+
+    <div id="ruffle" class="gameloc"></div>
+
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+
+    <script>
+      const runButton = document.getElementById("run-swf");
+      const ruffleContainer = document.getElementById("ruffle");
+
+      runButton.addEventListener("click", async () => {
+        const select = document.getElementById("restaurant-select");
+        const selectedRestaurant = select.value.toLowerCase();
+        const swfUrl = selectedRestaurant + ".swf";
+
+        while (ruffleContainer.firstChild) {
+          ruffleContainer.removeChild(ruffleContainer.firstChild);
+        }
+
+        const ruffle = window.RufflePlayer.newest();
+        const player = ruffle.createPlayer();
+        player.style.width = "100%";
+        player.style.height = "100%";
+
+        ruffleContainer.style.display = "block";
+        ruffleContainer.appendChild(player);
+
+        try {
+          await player.load({ url: swfUrl });
+          alert(
+            "Loading game: " +
+              selectedRestaurant.charAt(0).toUpperCase() +
+              selectedRestaurant.slice(1)
+          );
+        } catch (error) {
+          console.error("Error loading SWF:", error);
+          alert("Failed to load game: " + swfUrl);
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && e.ctrlKey) {
+          const confirmExit = confirm("Exit the game and return to menu?");
+          if (confirmExit) location.reload();
+        }
+      });
+    </script>
+  </body>
+</html>

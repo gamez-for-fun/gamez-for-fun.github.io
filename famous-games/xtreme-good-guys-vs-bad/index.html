@@ -1,0 +1,33 @@
+<!-- HTML document with full-screen iframe -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google</title>
+  <style>
+    /* Remove default margin/padding and ensure body takes full screen */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* Prevent scrollbars */
+    }
+
+    /* Full-screen iframe styling */
+    iframe {
+      border: none; /* Remove border */
+      width: 100vw; /* Full viewport width */
+      height: 100vh; /* Full viewport height */
+      display: block; /* Remove inline spacing */
+    }
+  </style>
+</head>
+<body>
+  <!-- Embed the desired URL in the iframe -->
+  <iframe 
+    src="https://exquisite-gumdrop-e463f1.netlify.app/xtreme_good_guys_vs_bad.html" 
+    title="Full Screen Iframe">
+  </iframe>
+</body>
+</html>

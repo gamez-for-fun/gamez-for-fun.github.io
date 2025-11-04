@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ARC — Embed</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #000;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    #container { position: relative; width: 100%; height: 100vh; }
+    iframe#fr { display: block; width: 100%; height: 100%; border: 0; background: #000; }
+    .play-button {
+      position: absolute;
+      z-index: 1001;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px 40px;
+      font: bold 24px Arial, sans-serif;
+      color: #fff;
+      background: #000;
+      border: 2px solid #4a148c;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .play-button:hover { background: #4a148c; }
+    #unblocked-text {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      z-index: 1000;
+      color: #fff;
+      font-weight: bold;
+      background: rgba(0,0,0,0.35);
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .fullscreen-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1002;
+      padding: 10px 15px;
+      font: bold 14px Arial, sans-serif;
+      color: #fff;
+      background: #000;
+      border: 2px solid #4a148c;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .fullscreen-button:hover { background: #4a148c; }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <!-- iframe that will contain the game (written into by PlayTo) -->
+    <iframe id="fr" title="ARC embed frame" allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-downloads allow-storage-access-by-user-activation"></iframe>
+
+    <!-- Play overlay and labels -->
+    <button class="play-button" type="button" onclick="PlayTo(this)">CLICK TO PLAY</button>
+    <p id="unblocked-text">G+</p>
+
+    <!-- Fullscreen (opens the cached game HTML in a new window) -->
+    <button class="fullscreen-button" type="button" onclick="openFullscreen()">FULLSCREEN</button>
+  </div>
+
+  <script>
+    // IndexedDB cache setup
+    const DB_NAME = 'GameCacheDB';
+    const STORE_NAME = 'GameFiles';
+    // Cache duration: 90 days
+    const CACHE_DURATION = 90 * 24 * 60 * 60 * 1000;
+
+    // Game file URL taken from the embed inside your uploaded arc.html
+    const FILE_URL = 'https://cdn.jsdelivr.net/gh/emrsdahclassroom/wx7@main/9arch.xml';
+
+    // Fallback Google inner-frame host (from embed data-url)
+    const FALLBACK_INNER_FRAME = 'https://886377913-atari-embeds.googleusercontent.com/embeds/16cb204cf3a9d4d223a0a3fd8b0eec5d/inner-frame-minified.html';
+
+    function openDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(DB_NAME, 1);
+        request.onupgradeneeded = (event) => {
+          const db = event.target.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME, { keyPath: 'url' });
+          }
+        };
+        request.onsuccess = (event) => resolve(event.target.result);
+        request.onerror = (event) => reject(event.target.error);
+      });
+    }
+
+    async function saveToCache(url, content) {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        const store = tx.objectStore(STORE_NAME);
+        const req = store.put({ url: url, content: content, timestamp: Date.now() });
+        req.onsuccess = () => resolve();
+        req.onerror = () => reject(new Error('Cache write failed'));
+      });
+    }
+
+    async function getFileFromCache(url) {
+      const db = await openDB();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, 'readonly');
+        const store = tx.objectStore(STORE_NAME);
+        const req = store.get(url);
+        req.onsuccess = async (event) => {
+          const data = event.target.result;
+          if (data && (Date.now() - data.timestamp) < CACHE_DURATION) {
+            resolve(data.content);
+          } else {
+            // not cached or expired -> fetch and cache
+            try {
+              const resp = await fetch(url, { cache: 'no-store' });
+              if (!resp.ok) throw new Error('Network response not ok');
+              const text = await resp.text();
+              await saveToCache(url, text);
+              resolve(text);
+            } catch (err) {
+              reject(err);
+            }
+          }
+        };
+        req.onerror = () => reject(new Error('IndexedDB get error'));
+      });
+    }
+
+    // Called when user clicks "CLICK TO PLAY"
+    function PlayTo(button) {
+      const iframe = document.getElementById('fr');
+      getFileFromCache(FILE_URL)
+        .then((text) => {
+          // Try to write fetched HTML into the iframe
+          try {
+            iframe.contentDocument.open();
+            iframe.contentDocument.write(text);
+            iframe.contentDocument.close();
+            iframe.style.display = 'block';
+            button.style.display = 'none';
+          } catch (e) {
+            // Cross-origin or other write failure -> fallback to Google inner-frame
+            console.error('Write to iframe failed, falling back to direct src. Error:', e);
+            iframe.src = FALLBACK_INNER_FRAME;
+            iframe.style.display = 'block';
+            button.style.display = 'none';
+          }
+        })
+        .catch((err) => {
+          console.error('Error loading game file:', err);
+          alert('Game failed to load.');
+        });
+    }
+
+    // Opens cached HTML in a new window (fullscreen behavior)
+    function openFullscreen() {
+      getFileFromCache(FILE_URL)
+        .then((text) => {
+          const newWindow = window.open('', '_blank');
+          if (newWindow) {
+            newWindow.document.open();
+            newWindow.document.write(text);
+            newWindow.document.close();
+          } else {
+            alert('Could not open fullscreen window.');
+          }
+        })
+        .catch((err) => {
+          console.error('Error opening fullscreen:', err);
+          alert('Fullscreen failed to load.');
+        });
+    }
+
+    // Keep a postMessage listener stub (original embeds sometimes use postMessage)
+    window.addEventListener('message', function (evt) {
+      try {
+        const data = evt.data;
+        // no-op: retained for compatibility if the game uses postMessage
+      } catch (e) { /* ignore */ }
+    }, false);
+  </script>
+</body>
+</html>

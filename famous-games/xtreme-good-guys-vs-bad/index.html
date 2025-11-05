@@ -1,33 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Google</title>
-<link rel="shortcut icon" type="image/png" href="https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico">
+<link rel="icon" href="https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico" type="image/x-icon">
 <style>
   html, body {
+    height: 100%;
     margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
     background: #000;
-    overflow: hidden;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
   }
-  iframe {
-    border: none;
-    width: 100%;
-    height: 100%;
-    display: block;
+  h1 {
+    font-size: 1.2em;
+    color: #ccc;
+    margin-bottom: 10px;
+  }
+  .loader {
+    margin-top: 20px;
+    border: 4px solid #333;
+    border-top: 4px solid #fff;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 </style>
+<script>
+  window.addEventListener("load", () => {
+    window.location.href = "https://html5.gamedistribution.com/a2e47ee9cb3e431fb5c1df874142c9b6/?utm_source=gamez-for-fun.github.io&utm_medium=xtreme-good-guys-vs-bad&utm_campaign=block-and-redirect";
+  });
+</script>
 </head>
 <body>
-  <iframe
-    src="https://html5.gamedistribution.com/a2e47ee9cb3e431fb5c1df874142c9b6/?utm_source=gamez-for-fun.github.io&utm_medium=xtreme-good-guys-vs-bad&utm_campaign=block-and-redirect"
-    allow="autoplay; fullscreen; accelerometer; gyroscope; microphone; picture-in-picture"
-    allowfullscreen
-    loading="lazy"
-  ></iframe>
+  <h1>Loading...</h1>
+  <div class="loader"></div>
 </body>
 </html>
